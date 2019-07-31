@@ -1,0 +1,16 @@
+body {
+    color: lightskyblue;
+}
+
+.wrapper {
+    display: flex;
+    background-color: lightcyan;
+
+}
+
+.box {
+    background-color: rgb(28, 75, 116);
+    margin: 2px;
+    height: 50px;
+    width: 50px;
+}
