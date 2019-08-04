@@ -1,16 +1,20 @@
-body {
-    color: lightskyblue;
-}
-
-.wrapper {
+.row {
     display: flex;
-    background-color: lightcyan;
-
+    /* background-image: url('./media/boxes/moovingstars.gif'); */
+    background-color: black;
 }
 
 .box {
-    background-color: rgb(28, 75, 116);
+    background-image: url('./media/boxes/stars.gif');
+    /* background-color: skyblue; */
+    /* position: relative; */
     margin: 2px;
-    height: 50px;
-    width: 50px;
+    height: 70px;
+    width: 70px;
+}
+
+.unreachable {
+    /* background-color: blueviolet; */
+    background-image: url('./media/asteroid70px.png');
+    /* position: absolute; */
 }
