@@ -11,13 +11,12 @@ for (let row = 0; row < 10; row++) {
     newRow.appendChild(newBox);
 
     const boxes = document.querySelectorAll(".box");
-    const unreachableBox = 12;
+    const numberOfUnreachableBoxes = 12;
 
-    for (let i = 0; i < unreachableBox; i++) {
+    for (let i = 0; i < numberOfUnreachableBoxes; i++) {
       const unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
       unreachableBox.className = " box unreachable";
       console.log(unreachableBox);
-      // console.log(boxes.length);
     }
   }
 }
