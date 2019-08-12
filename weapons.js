@@ -1,20 +1,21 @@
 class Weapons {
     constructor(name, damage, image) {
-        this.name = "";
-        this.damage = 0;
-        this.image = "";
+        this.name = name;
+        this.damage = damage;
+        this.image = image;
         this.weaponBoard = [];
+        this.boxes;
 
     }
 
     genarateWeapons() {
 
-        const boxes = document.querySelectorAll(".box");
+        this.boxes = document.querySelectorAll(".box");
         this.weaponBoard = [weapon1, weapon2, weapon3, weapon4];
 
         // generate one weapon of each in random boxes
         for (const eachWeapon of this.weaponBoard) {
-            const newWeapon = boxes[Math.floor(Math.random() * boxes.length)];
+            const newWeapon = this.boxes[Math.floor(Math.random() * this.boxes.length)];
             newWeapon.className = "weaponBox";
             console.log(eachWeapon);
         }
@@ -31,12 +32,3 @@ const weapon4 = new Weapons("light Saber Cold Fusion", 20, '<img src="./media/we
 
 const weapon = new Weapons();
 weapon.genarateWeapons();
-
-
-// for (const response of this.responses.collection) {
-//     const interspace = " ";
-//     this.newRow.innerHTML =
-//       response.resource.pseudo + interspace + response.resource.breed.lib;
-//     console.log(response);
-//     console.log(this.responses.collection);
-//   }

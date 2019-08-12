@@ -15,8 +15,12 @@
     background-image: url('./media/asteroid70px.png');
 }
 
-.weaponBox {
-    background-image: url('./media/weapons/rocket.png');
+.player1Box {
+    background-image: url('./media/players/player1.png');
+}
+
+.player2Box {
+    background-image: url('./media/players/player2.png');
 }
 
 /* 

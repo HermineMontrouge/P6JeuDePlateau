@@ -1,31 +1,32 @@
-class Joueur {
-  constructor() {
-    this.hp = 100;
-    this.damage = 10;
-    this.actionPoint = 3;
-  }
-  hpDown(pointdown) {
-    this.hp -= pointdown;
+class Players {
+  constructor(name, hp, image) {
+    this.name = name;
+    this.hp = hp;
+    this.image = image;
+    this.boxes;
+    this.player1;
+    this.player2;
   }
 
-  move() {
+  genaratePlayers() {
 
-    moveView();
-    $('.block').off("click");
-    $('.freeBlockMove').on("click", function () {
-      moveClick();
-      if (playerPlaying == "player2") {
-        player2Obj.move();
-        playerPlaying = "player1";
-        $('#infoGame').prepend("<p>The Force change of side.    LightSide you need to play.</p>");
-      } else if (playerPlaying == "player1") {
-        player1Obj.move();
-        playerPlaying = "player2";
-        $('#infoGame').prepend("<p>The Force change of side.    DarkSide you need to play.</p>");
-      }
-    });
+    this.boxes = document.querySelectorAll(".box");
+
+    // generate players on random boxes
+    this.player1 = this.boxes[Math.floor(Math.random() * this.boxes.length)];
+    player1.className = "player1Box";
+    console.log(player1);
+
+    this.player2 = this.boxes[Math.floor(Math.random() * this.boxes.length)];
+    player2.className = "player2Box";
+    console.log(player2);
   }
 }
 
-var player1Obj = new Joueur();
-var player2Obj = new Joueur();
+// Instantiation
+
+const player1 = new Players("Deep Space Nine", 100, '<img src="./media/players/player1.png" alt="Deep Space Nine"></img>');
+const player2 = new Players("Millenium Falcon", 100, '<img src="./media/players/player2.png" alt="Millenium Falcon"></img>');
+
+player1.genaratePlayers();
+player2.genaratePlayers();
