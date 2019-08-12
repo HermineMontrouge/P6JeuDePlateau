@@ -1,20 +1,76 @@
 .row {
     display: flex;
-    /* background-image: url('./media/boxes/moovingstars.gif'); */
     background-color: black;
+    /* justify-content: center; */
 }
 
 .box {
     background-image: url('./media/boxes/stars.gif');
-    /* background-color: skyblue; */
-    /* position: relative; */
     margin: 2px;
     height: 70px;
     width: 70px;
 }
 
 .unreachable {
-    /* background-color: blueviolet; */
     background-image: url('./media/asteroid70px.png');
-    /* position: absolute; */
 }
+
+.weaponBox {
+    background-image: url('./media/weapons/rocket.png');
+}
+
+/* 
+#beginingScreen {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding-top: 50px;
+}
+
+.title {
+    color: white;
+    padding-top: 55px;
+    font-family: "Press Start 2P";
+}
+
+h2 {
+    font-size: 1em;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+#start {
+    background-color: purple;
+    text-transform: uppercase;
+    font-family: "Press Start 2P";
+    color: greenyellow;
+    position: absolute;
+    bottom: 120px;
+    width: 50%;
+    margin-left: -25%;
+    padding: 20px;
+    border: none;
+}
+
+#start:hover {
+    background-color: greenyellow;
+    border: none;
+    color: purple;
+}
+
+.blink {
+    animation: blinkcolor 1s infinite;
+}
+
+@keyframes blinkcolor {
+    0% {}
+
+    50% {
+        color: black;
+    }
+} */
