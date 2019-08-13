@@ -11,6 +11,7 @@ class Weapons {
     genarateWeapons() {
 
         this.boxes = document.querySelectorAll(".box");
+        console.log(this.boxes);
         this.weaponBoard = [weapon1, weapon2, weapon3, weapon4];
 
         // generate one weapon of each in random boxes

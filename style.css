@@ -23,6 +23,10 @@
     background-image: url('./media/players/player2.png');
 }
 
+.newWeapon {
+    background-image: url('./media/weapons/fire.png');
+}
+
 /* 
 #beginingScreen {
     z-index: 1;

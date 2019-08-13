@@ -4,6 +4,9 @@ class Board {
         this.boxes;
     }
 
+    // x abscisses horizontal
+    // y ordonnées vertical
+
     generateBoard() {
 
         // Selection of id board on the dom
@@ -41,9 +44,9 @@ class Board {
     }
 }
 
-
 // Instantiation
 
 const newBoard = new Board();
 newBoard.generateBoard();
 newBoard.generateUnreachableBoxes();
+

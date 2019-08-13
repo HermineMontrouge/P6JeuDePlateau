@@ -1,7 +1,8 @@
 class Players {
-  constructor(name, hp, image) {
+  constructor(name, hp, weapon, image) {
     this.name = name;
     this.hp = hp;
+    this.weapon = weapon;
     this.image = image;
     this.boxes;
     this.player1;
@@ -25,8 +26,8 @@ class Players {
 
 // Instantiation
 
-const player1 = new Players("Deep Space Nine", 100, '<img src="./media/players/player1.png" alt="Deep Space Nine"></img>');
-const player2 = new Players("Millenium Falcon", 100, '<img src="./media/players/player2.png" alt="Millenium Falcon"></img>');
+const player1 = new Players("Deep Space Nine", 100, weapon0, '<img src="./media/players/player1.png" alt="Deep Space Nine"></img>');
+const player2 = new Players("Millenium Falcon", 100, weapon0, '<img src="./media/players/player2.png" alt="Millenium Falcon"></img>');
 
 player1.genaratePlayers();
 player2.genaratePlayers();
