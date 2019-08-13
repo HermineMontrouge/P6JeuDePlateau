@@ -16,7 +16,7 @@ class Player {
     for (let i = 0; i < playerBoard.length; i++) {
       const newPlayer = this.boxes[Math.floor(Math.random() * this.boxes.length)];
       if (i === 0) {
-        newPlayer.className = "box player1";
+        newPlayer.className = "box player1"; 
       } else if (i === 1) {
         newPlayer.className = "box player2";
       }

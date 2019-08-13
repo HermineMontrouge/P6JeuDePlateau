@@ -49,6 +49,6 @@ class Board {
 
 // Instantiation
 
-const newBoard = new Board();
+const newBoard = new Board(); 
 newBoard.generateBoard();
 newBoard.generateUnreachableBoxes();
