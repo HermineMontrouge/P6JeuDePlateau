@@ -2,6 +2,13 @@ class Board {
   constructor() {
     this.board;
     this.boxes;
+    /**
+     * Review 19/08/2019
+     * 
+     * les players et les armes ne devraient pas être initialisés dans le constructor.
+     * Il faut plutôt que tu les inits à la ligne 141.
+     * Tu dois utiliser les classes weapon et player que tu as crées dans tes autres fichiers.
+     */
     this.player1 = {
       namePlayer1: "Deep Space Nine",
       hpPlayer1: 100,
@@ -41,6 +48,9 @@ class Board {
     };
   }
 
+  /**
+   * Top ça !
+   */
   generateBoard() {
     // Selection of id="board" on the dom
     this.board = document.querySelector("#board");
@@ -58,6 +68,9 @@ class Board {
     }
   }
 
+  /**
+   * Petite question : ces boxs n'ont plus de coordonnées x/y ? (ce que tu fais à la ligne 65)
+   */
   generateUnreachableBoxes() {
     // Selection of class="box" on the dom
     this.boxes = document.querySelectorAll(".box");
@@ -80,6 +93,10 @@ class Board {
     // renvoie "12"
   }
 
+  /**
+   * OK, tu as la base.
+   * Par contre, un joueur ne peut-il pas apparaitre sur une box "unreachable" ? (ou alors même côte à côte)
+   */
   genaratePlayers() {
 
     const playerBoard = [this.player1, this.player2];
@@ -107,8 +124,13 @@ class Board {
   //   } 
   // }
 
+  /**
+   * Ok dans l'idée de la génération
+   */
   genarateWeapons() {
-
+    /**
+     * Si tu utilises des classes Weapon, tu vas pouvoir passer tout ça en paramètres de la méthode generareWeapon.
+     */
     const weaponBoard = [this.weapon1, this.weapon2, this.weapon3, this.weapon4];
 
     // generate one weapon of each in random boxes

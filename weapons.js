@@ -1,3 +1,7 @@
+/**
+ * Pourquoi tu as tout commenté ?
+ */
+
 // class Weapon {
 //     constructor(name, damage, image) {
 //         this.name = name;

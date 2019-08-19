@@ -1,3 +1,7 @@
+/**
+ * Idem ici : pourqioi tu as tout commenté ?
+ */
+
 // class Player {
 //   constructor(name, hp, weapon, image) {
 //     this.name = name;
