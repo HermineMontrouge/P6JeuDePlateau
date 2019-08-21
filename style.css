@@ -15,6 +15,31 @@
     background-image: url('./media/asteroid70px.png');
 }
 
+
+.player1 {
+    background-image: url('./media/players/player1.png');
+}
+
+.player2 {
+    background-image: url('./media/players/player2.png');
+}
+
+.weapon1 {
+    background-image: url('./media/weapons/weapon1.png');
+}
+
+.weapon2 {
+    background-image: url('./media/weapons/weapon2.png');
+}
+
+.weapon3 {
+    background-image: url('./media/weapons/weapon3.png');
+}
+
+.weapon4 {
+    background-image: url('./media/weapons/weapon4.png');
+}
+
 /* 
 #beginingScreen {
     z-index: 1;
