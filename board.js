@@ -1,3 +1,45 @@
+class TestBoard {
+  constructor(row, box, unreachableBox) {
+    this._row = row;
+    this._box = box;
+    this._unreachableBox = unreachableBox;
+  }
+
+  generateBoard() {
+    const board = document.querySelector("#board");
+
+    // (initialisation de l'indice; conditition de sortie; incrémente de + 1)
+    for (let i = 0; i < this._row; i++) {
+      const newRow = document.createElement("div");
+      newRow.className = "row";
+      board.appendChild(newRow);
+
+      for (let y = 0; y < this._row; y++) {
+        const newBox = document.createElement("div");
+
+
+        newBox.className = `box y-${i} x-${y}`;
+        newRow.appendChild(newBox);
+      }
+    }
+  }
+
+  generateUnreachableBoxes() {
+    const boxes = document.querySelectorAll('.box');
+    console.log(boxes[1])
+  }
+
+  genaratePlayers() {
+    
+  }
+}
+
+
+const board = new TestBoard(4, 4, 2)
+board.generateBoard()
+board.generateUnreachableBoxes()
+
+
 class Board {
   constructor() {
     this.board;
@@ -88,13 +130,13 @@ class Board {
 
 // Instantiation
 
-const newBoard = new Board();
+// const newBoard = new Board();
 
-newBoard.generateBoard();
-newBoard.generateUnreachableBoxes();
-newBoard.genaratePlayers();
-newBoard.generateWeapons();
-// newBoard.noSideBySide();
+// newBoard.generateBoard();
+// newBoard.generateUnreachableBoxes();
+// newBoard.genaratePlayers();
+// newBoard.generateWeapons();
+// // newBoard.noSideBySide();
 
 
 
