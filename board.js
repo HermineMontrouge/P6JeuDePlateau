@@ -8,8 +8,6 @@ class Board {
   }
 
   generateBoard() {
-    // Initialization of the index; exit condition; increment by + 1
-    const board = document.querySelector("#board");
 
     for (let i = 0; i < 10; i++) {
       const newRow = document.createElement("div");
@@ -25,7 +23,9 @@ class Board {
   }
 
   generateId() {
+
     const boxes = document.querySelectorAll(".box");
+
     let index = 0;
 
     for (let eachBox of boxes) {
@@ -34,29 +34,19 @@ class Board {
   }
 
   generateUnreachableBoxes() {
-    // Selection of class="box" on the dom
+
     const boxes = document.querySelectorAll(".box");
-    console.log(boxes[1]);
 
-    const numberOfUnreachableBoxes = 14;
-    // console.log(boxes); renvoie NodeList(100) la liste des 100 div.box dans un tableau
-    // console.log(numberOfUnreachableBoxes); renvoie "12"
-
-    for (let i = 0; i < numberOfUnreachableBoxes; i++) {
-      const unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
-      unreachableBox.className = `box unreachable`;
-      // console.log(unreachableBox);
-      // renvoie <div class=" box unreachable"></div>
+    for (let i = 0; i < 14; i++) {
+      this.unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
+      this.unreachableBox.className = `box unreachable`;
     }
-    // console.log(this.boxes);
-    // renvoie la liste des 100 div.box dans des tableaux
-    // console.log(numberOfUnreachableBoxes);
-    // renvoie "12"
   }
 
   genaratePlayers() {
+
     const boxes = document.querySelectorAll(".box");
-    const player = document.querySelectorAll(".player");
+
     // generate one player of each in random boxes
     for (let i = 0; i < 2; i++) {
       this._players = boxes[Math.floor(Math.random() * boxes.length)];
@@ -65,15 +55,14 @@ class Board {
       } else {
         this._players.className = `box player2`;
       }
-      console.log(player);
-      // console.log(players[1]);
-      console.log(boxes[1]);
+      console.log(this._players);
     }
-    console.log(boxes[4]);
   }
 
   generateWeapons() {
+
     const boxes = document.querySelectorAll(".box");
+
     for (let i = 0; i < 4; i++) {
       this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
       if (i === 0) {
