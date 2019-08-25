@@ -4,7 +4,16 @@ class Board {
     this._box = box;
     this._unreachableBox = unreachableBox;
     this._players = players;
+    this._player1;
+    this._player2;
     this._weapons = weapons;
+    this._weapon1;
+    this._weapon2;
+    this._weapon3;
+    this._weapon4;
+    this._fullBox = [];
+    this._emptyBoxes = [];
+
   }
 
   generateBoard() {
@@ -22,7 +31,7 @@ class Board {
     }
   }
 
-  generateId() {
+  generateIdForEachBox() {
 
     const boxes = document.querySelectorAll(".box");
 
@@ -38,8 +47,9 @@ class Board {
     const boxes = document.querySelectorAll(".box");
 
     for (let i = 0; i < 14; i++) {
-      this.unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
-      this.unreachableBox.className = `box unreachable`;
+      this._unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
+      this._unreachableBox.className = `box unreachable`;
+      console.log(this._unreachableBox);
     }
   }
 
@@ -47,15 +57,17 @@ class Board {
 
     const boxes = document.querySelectorAll(".box");
 
-    // generate one player of each in random boxes
     for (let i = 0; i < 2; i++) {
       this._players = boxes[Math.floor(Math.random() * boxes.length)];
       if (i === 0) {
         this._players.className = `box player1`;
+        this._player1 = this._players;
+        console.log(this._player1);
       } else {
         this._players.className = `box player2`;
+        this._player2 = this._players;
+        console.log(this._player2);
       }
-      console.log(this._players);
     }
   }
 
@@ -67,40 +79,106 @@ class Board {
       this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
       if (i === 0) {
         this._weapons.className = `box weapon1`;
+        this._weapon1 = this._weapons;
+        console.log(this._weapon1);
       } else if (i === 1) {
         this._weapons.className = `box weapon2`;
+        this._weapon2 = this._weapons;
+        console.log(this._weapon2);
       } else if (i === 2) {
         this._weapons.className = `box weapon3`;
+        this._weapon3 = this._weapons;
+        console.log(this._weapon3);
       } else if (i === 3) {
         this._weapons.className = `box weapon4`;
+        this._weapon4 = this._weapons;
+        console.log(this._weapon4);
       }
-      console.log(this._weapons);
+      // console.log(this._weapons);
+      // const weaponsClasses = this._weapons.classList;
+      // console.log(weaponsClasses[1]);
+    }
+    // let nodeList = boxes.item;
+  }
+
+  getEmptyBoxes() {
+
+    const boxes = document.querySelectorAll(".box");
+
+    this._fullBox = [this._player1, this._player2, this._weapon1, this._weapon2, this._weapon3, this._weapon4, this._unreachableBox];
+
+    for (const eachBox of boxes) {
+      if (eachBox !== this._fullBox) {
+        this._emptyBox.push(eachBox);
+      }
+      // if (eachBox !== this._player1 || eachBox !== this._player2 ||
+      //   eachBox !== this._weapon1 || eachBox !== this._weapon2 ||
+      //   eachBox !== this._weapon3 || eachBox !== this._weapon4 ||
+      //   eachBox !== this._unreachableBox) {
+
+
+      // this._emptyBox = (boxes !== this._fullBox);
+      // console.log(this._emptyBox);
+      // console.log(this._fullBox);
+
+    }
+    console.log(this._emptyBox);
+    console.log(this._fullBox);
+    console.log(boxes);
+    console.log(this._player1);
+  }
+
+
+  noSuperposition() {
+
+    const boxes = document.querySelectorAll(".box");
+
+    while (this._player2 == this._player1 || this._weapon1 == this._player1 ||
+      this._weapon2 == this._player1 || this._weapon3 == this._player1 ||
+      this._weapon4 == this._player1 || this._weapon1 == this._player2 ||
+      this._weapon2 == this._player2 || this._weapon3 == this._player2 ||
+      this._weapon4 == this._player2 || this._weapon2 == this._weapon1 ||
+      this._weapon3 == this._weapon1 || this._weapon4 == this._weapon1 ||
+      this._weapon3 == this._weapon2 || this._weapon4 == this._weapon2 ||
+      this._weapon4 == this._weapon3) {
+      console.log("noSuperposition");
+      this._player1 = boxes[Math.floor(Math.random() * boxes.length)];
+      this._player2 = boxes[Math.floor(Math.random() * boxes.length)];
+      this._weapon1 = boxes[Math.floor(Math.random() * boxes.length)];
+      this._weapon2 = boxes[Math.floor(Math.random() * boxes.length)];
+      this._weapon3 = boxes[Math.floor(Math.random() * boxes.length)];
+      this._weapon4 = boxes[Math.floor(Math.random() * boxes.length)];
     }
   }
+
+  //   noSideBySide() {
+
+  //     const boxes = document.querySelectorAll(".box");
+
+  //     while (this._player1 == this._player2 || this._player1 == (this._player2 + 1) ||
+  //       this._player1 == (this._player2 - 1) || this._player1 == (this._player2 + 10) ||
+  //       this._player1 == (this._player2 - 10) || this._player1 == (this._player2 + 9) ||
+  //       this._player1 == (this._player2 - 9) || this._player1 == (this._player2 + 11) ||
+  //       this._player1 == (this._player2 - 11)) {
+  //       this._player1 = boxes[Math.floor(Math.random() * boxes.length)];
+  //     }
+  //     console.log(this._player1);
+  //     console.log(this._player2);
+  //   }
 }
 
 // Instantiation
 
-const newBoard = new Board(4, 4, 2, 2, 4);
+const newBoard = new Board(10, 10, 14, 2, 4);
 
 newBoard.generateBoard();
-newBoard.generateId();
+newBoard.generateIdForEachBox();
 newBoard.generateUnreachableBoxes();
 newBoard.genaratePlayers();
 newBoard.generateWeapons();
-
+newBoard.getEmptyBoxes();
+newBoard.noSuperposition();
 // newBoard.noSideBySide();
-
-// noSideBySide() {
-//   while (this.players[1] == this.players || this.players[1] == (this.players + 1) ||
-//     this.players[1] == (this.players - 1) || this.players[1] == (this.players + 10) ||
-//     this.players[1] == (this.players - 10) || this.players[1] == (this.players + 9) ||
-//     this.players[1] == (this.players - 9) || this.players[1] == (this.players + 11) ||
-//     this.players[1] == (this.players - 11)) {
-//     this.players[1] = Math.floor(Math.random() * this.boxes.length);
-//   }
-//   console.log(this.players[1]);
-// }
 
 // playerProximity() {
 //   /**
@@ -175,3 +253,20 @@ newBoard.generateWeapons();
 //           }
 //       }
 //   }
+
+//   // this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
+// } else if (this._weapon2 == this._player1 || this._weapon2 == this._player2 ||
+//   this._weapon2 == this._weapon1 || this._weapon2 == this._weapon3 ||
+//   this._weapon2 == this._weapon4) {
+//   console.log("noSuperpositionWeapon2");
+//   // this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
+// } else if (this._weapon3 == this._player1 || this._weapon3 == this._player2 ||
+//   this._weapon3 == this._weapon1 || this._weapon3 == this._weapon2 ||
+//   this._weapon3 == this._weapon4) {
+//   console.log("noSuperpositionWeapon3");
+//   // this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
+// } else if (this._weapon3 == this._weapon4) {
+//   console.log("noSuperpositionWeapon4");
+//   // this._weapons = boxes[Math.floor(Math.random() * boxes.length)];
+// }
+// console.log(boxes);
