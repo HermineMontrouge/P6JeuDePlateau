@@ -156,8 +156,8 @@ class Board {
       this._player2 == this._player1
     ) {
       console.log("noSuperposition");
-      this._players = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-      this._weapons = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+      this._players = emptyBoxes[Math.floor(Math.random() * (emptyBoxes.length))];
+      this._weapons = emptyBoxes[Math.floor(Math.random() * (emptyBoxes.length))];
       break;
     }
     // console.log(boxes);
