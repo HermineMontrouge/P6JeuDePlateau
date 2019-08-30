@@ -2,6 +2,8 @@
     background-color: black;
 }
 
+/* CSS du plateau de jeu */
+
 /* Attention ils s'agit des row du plateau de jeu*/
 .row {
     display: flex;
@@ -45,6 +47,13 @@
     background-image: url('./media/weapons/weapon4.png');
 }
 
+.highlight {
+    background-image: url('./media/boxes/blacksky.gif');
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* CSS de la présentation des joueurs et des armes*/
 
 .container {
     margin-top: 40px;
@@ -101,6 +110,11 @@
         max-width: 45%;
         max-height: 45%;
     }
+}
+
+.imgWeaponPlayer1,
+.imgWeaponPlayer2 {
+    background-image: url('./media/weapons/bullet.png');
 }
 
 

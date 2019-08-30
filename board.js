@@ -58,8 +58,9 @@ class Board {
     this._player1.classList.remove("empty");
 
     // On souhaite que player 2 ne s'affiche pas côte à côte de player1
-    const boxes = document.querySelectorAll(".box");
     //Pour chaque box dont l'indice du tableau est -1 +1 -10 +10 de l'indice de player1 remove la class empty
+    const boxes = document.querySelectorAll(".box");
+
     for (const box of boxes) {
       if ((parseInt(box.id) - 1) == this._player1.id ||
         (parseInt(box.id) + 1) == this._player1.id ||
@@ -86,6 +87,8 @@ class Board {
   generateWeapons() {
     // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
     const emptyBoxes = document.querySelectorAll(".empty");
+
+    console.log(emptyBoxes);
 
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // On ajoute à la div la classe "weapon1" et on lui supprime la classe "empty"
@@ -129,6 +132,27 @@ class Board {
     this._weapon4.classList.remove("empty");
     console.log(this._weapon4);
   }
+
+  highLigth() {
+    // cases de déplacement
+    const boxes = document.querySelectorAll(".box");
+    for (const box of boxes) {
+      if ((parseInt(box.id) - 1) == this._player1.id ||
+        (parseInt(box.id) - 2) == this._player1.id ||
+        (parseInt(box.id) - 3) == this._player1.id ||
+        (parseInt(box.id) + 1) == this._player1.id ||
+        (parseInt(box.id) + 2) == this._player1.id ||
+        (parseInt(box.id) + 3) == this._player1.id ||
+        (parseInt(box.id) - this._x) == this._player1.id ||
+        (parseInt(box.id) - ((this._x) * 2)) == this._player1.id ||
+        (parseInt(box.id) - ((this._x) * 3)) == this._player1.id ||
+        (parseInt(box.id) + this._x) == this._player1.id ||
+        (parseInt(box.id) + ((this._x) * 2)) == this._player1.id ||
+        (parseInt(box.id) + ((this._x) * 3)) == this._player1.id) {
+        box.classList.add("highlight");
+      }
+    }
+  }
 }
 
 // Instantiation
@@ -140,7 +164,7 @@ newBoard.generateIdForEachBox();
 newBoard.generateUnreachableBoxes();
 newBoard.genaratePlayers();
 newBoard.generateWeapons();
-newBoard.noProximityForPlayers();
+newBoard.highLigth();
 
 // genaratePlayers() {
 //   // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
