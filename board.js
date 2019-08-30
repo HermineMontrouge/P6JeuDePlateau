@@ -1,5 +1,3 @@
-// cette version n'a pas l'option noProximityOfPlayers
-
 class Board {
   constructor(row, box, unreachableBox) {
     this._row = row;
@@ -15,11 +13,12 @@ class Board {
   }
 
   generateBoard() {
+    // Génère 10 lignes
     for (this._x = 0; this._x < 10; this._x++) {
       const newRow = document.createElement("div");
       newRow.className = "row";
       board.appendChild(newRow);
-
+      // génère 1O boîtes dans chaque ligne
       for (let y = 0; y < 10; y++) {
         const newBox = document.createElement("div");
         newBox.className = `box x ${this._x} y ${y} empty`;
@@ -58,39 +57,20 @@ class Board {
     this._player1.classList.add("player1");
     this._player1.classList.remove("empty");
 
-
+    // On souhaite que player 2 ne s'affiche pas côte à côte de player1
     const boxes = document.querySelectorAll(".box");
-    let indexOfPlayer1 = document.getElementsByClassName("player1");
+    //Pour chaque box dont l'indice du tableau est -1 +1 -10 +10 de l'indice de player1 remove la class empty
+    for (const box of boxes) {
+      if ((parseInt(box.id) - 1) == this._player1.id ||
+        (parseInt(box.id) + 1) == this._player1.id ||
+        (parseInt(box.id) - this._x) == this._player1.id ||
+        (parseInt(box.id) + this._x) == this._player1.id) {
+        box.classList.add("adjacentBox");
+        box.classList.remove("empty");
+      }
+    }
 
-    console.log(this._x);
-    console.log(indexOfPlayer1);
-    console.log(emptyBoxes[this._player1]);
-    console.log(boxes[[this._player1]]);
-    console.log(boxes[indexOfPlayer1]);
-    console.log(boxes[7]);
-    console.log(boxes);
-
-    // creation des variables left rigth top et bottom auquel on pourra remove la class empty et add leurs nouveaus status
-    let leftBoxOfPlayer1 = indexOfPlayer1.index - 1;
-    leftBoxOfPlayer1.classList.add("left");
-    leftBoxOfPlayer1.classList.remove("empty");
-    let rigthBoxOfPlayer1 = indexOfPlayer1 + 1;
-    rigthBoxOfPlayer1.classList.add("rigth");
-    rigthBoxOfPlayer1.classList.remove("empty");
-
-    let topBoxOfPlayer1 = indexOfPlayer1 - this._x;
-    topBoxOfPlayer1.classList.add("top");
-    topBoxOfPlayer1.classList.remove("empty");
-    let bottomBoxOfPlayer1 = indexOfPlayer1 + this._x;
-    bottomBoxOfPlayer1.classList.add("bottom");
-    bottomBoxOfPlayer1.classList.remove("empty");
-
-    console.log(leftBoxOfPlayer1);
-    console.log(rigthBoxOfPlayer1);
-    console.log(topBoxOfPlayer1);
-    console.log(bottomBoxOfPlayer1);
-
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni player1
+    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni player1 ni adjacentes player1
     const withoutPlayer1Boxes = document.querySelectorAll(".empty");
 
     this._player2 =
@@ -148,39 +128,6 @@ class Board {
     this._weapon4.classList.add("weapon4");
     this._weapon4.classList.remove("empty");
     console.log(this._weapon4);
-  }
-
-  noProximityForPlayers() {
-    //   // Récupèration de la case player1
-    // let player1 = document.querySelector(".player1");
-    //   // Création des 4 variables qui pointent vers case de gauche, droite, haut et bas de player1
-    //   // Suppression de la classe "empty" sur ces cases + ajoute d'une classe spécifique
-    //   // Player2 ne peut être généré que dans une case "empty" les deux joueurs ne pourront pas être côte à côte
-    //   let leftBoxOfPlayer1 = player1 x - 1;
-    //   leftBoxOfPlayer1.classList.remove("empty")
-    //   leftBoxOfPlayer1.classList.add("left");
-    //   let rigthBoxOfPlayer1 = player1 x + 1;
-    //   rigthBoxOfPlayer1.classList.remove("empty")
-    //   rigthBoxOfPlayer1.classList.add("rigth");
-    //   let topBoxOfPlayer1 = player1 y - 1;
-    //   topBoxOfPlayer1.classList.remove("empty")
-    //   topBoxOfPlayer1.classList.add("top");
-    //   let bottomBoxOfPlayer1 = player1 y + 1;
-    //   bottomBoxOfPlayer1.classList.remove("empty")
-    //   bottomBoxOfPlayer1.classList.add("bottom");
-    //   console.log(leftBoxOfPlayer1);
-    //   console.log(rigthBoxOfPlayer1);
-    //   console.log(topBoxOfPlayer1);
-    //   console.log(bottomBoxOfPlayer1);
-    //   // Players correspond au dernier joueur généré, donc player2
-    //   // Tant que player2 == cases adjacentes à player1 random player2
-    //   while (players == leftBoxOfPlayer1 ||
-    //     players == rigthBoxOfPlayer1 ||
-    //     players == topBoxOfPlayer1 ||
-    //     players == bottomBoxOfPlayer1) {
-    //     players = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    //     break;
-    //   }
   }
 }
 
