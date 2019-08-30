@@ -1,11 +1,8 @@
-body {
+* {
     background-color: black;
 }
 
-#board {
-    max-width: 70%;
-}
-
+/* Attention ils s'agit des row du plateau de jeu*/
 .row {
     display: flex;
     background-color: black;
@@ -15,12 +12,12 @@ body {
 .box {
     background-image: url('./media/boxes/stars.gif');
     margin: 2px;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
 }
 
 .unreachable {
-    background-image: url('./media/asteroid70px.png');
+    background-image: url('./media/asteroid50px.png');
 }
 
 
@@ -48,12 +45,62 @@ body {
     background-image: url('./media/weapons/weapon4.png');
 }
 
-img {
+
+.container {
+    margin-top: 40px;
+}
+
+.P1boardP2 {
+    display: flex;
+}
+
+.DeepSpaceNine,
+.MilleniumFalcon,
+.weaponTitle {
+    max-width: 60%;
+    max-height: 60%;
     display: block;
     width: auto;
     margin-left: auto;
     margin-right: auto;
-    max-width: 50%;
+}
+
+.presWeapons {
+    display: block;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 45%;
+}
+
+@media all and (min-width: 150px) and (max-width: 1200px) {
+
+    .P1boardP2 {
+        flex-direction: column;
+    }
+
+    .DeepSpaceNine,
+    .MilleniumFalcon,
+    .weaponTitle {
+        max-width: 20%;
+        max-height: 20%;
+        display: block;
+        width: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .board {
+        order: 3;
+    }
+}
+
+@media all and (min-width: 1400px) and (max-width: 3000px) {
+
+    #board {
+        max-width: 45%;
+        max-height: 45%;
+    }
 }
 
 
