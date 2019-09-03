@@ -10,18 +10,19 @@ class Board {
     this._weapon3;
     this._weapon4;
     this._x = 0;
+    this._y = 0;
   }
 
   generateBoard() {
-    // Génère 10 lignes
+    // Generate 10 lines
     for (this._x = 0; this._x < 10; this._x++) {
       const newRow = document.createElement("div");
       newRow.className = "row";
       board.appendChild(newRow);
-      // génère 1O boîtes dans chaque ligne
-      for (let y = 0; y < 10; y++) {
+      // Generate 1O boxes in each lines
+      for (this._y = 0; this._y < 10; this._y++) {
         const newBox = document.createElement("div");
-        newBox.className = `box x ${this._x} y ${y} empty`;
+        newBox.className = `box x-${this._x} y-${this._y} empty`;
         newRow.appendChild(newBox);
       }
     }
@@ -36,29 +37,31 @@ class Board {
   }
 
   generateUnreachableBoxes() {
-    // Récupération du tableau contenant les 100 boîtes
+    // recovery of the table containing the 100 boxes
     const boxes = document.querySelectorAll(".box");
 
-    // Génération aléatoire d'environ 14 asteroids (parfois moins si elles se superposent)
+    // Random generation of 14 asteroids (sometimes less if they overlap)
     for (let i = 0; i < 14; i++) {
       this._unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
-      // On ajoute aux div la classe "unreachable" et on supprime la classe "empty"
+      // We add the class "unreachable" and we delete the class "empty" of each <div asteroid>
       this._unreachableBox.classList.add("unreachable");
       this._unreachableBox.classList.remove("empty");
     }
+    console.log(boxes);
   }
 
   genaratePlayers() {
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
+    // Recovery of the table containing the boxes that are not asteroids
     const emptyBoxes = document.querySelectorAll(".empty");
 
     this._player1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    // On ajoute à la div la classe "player1" et on lui supprime la classe "empty"
+    // We add to the div the class "player1" and we delete the class "empty"
     this._player1.classList.add("player1");
     this._player1.classList.remove("empty");
+    console.log(this._player1);
 
-    // On souhaite que player 2 ne s'affiche pas côte à côte de player1
-    //Pour chaque box dont l'indice du tableau est -1 +1 -10 +10 de l'indice de player1 remove la class empty
+    // We wish that player 2 does not appear side by side of player1
+    // For each box whose index of the array is -1 +1 -10 +10 of the index of player1 remove the class empty
     const boxes = document.querySelectorAll(".box");
 
     for (const box of boxes) {
@@ -71,85 +74,112 @@ class Board {
       }
     }
 
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni player1 ni adjacentes player1
+    // Recovery of the table containing the boxes that are not asteroids neither player1 nor adjacent player1
     const withoutPlayer1Boxes = document.querySelectorAll(".empty");
 
     this._player2 =
       withoutPlayer1Boxes[
         Math.floor(Math.random() * withoutPlayer1Boxes.length)
       ];
-    // On ajoute à la div la classe "player2" et on lui supprime la classe "empty"
+    // We add to the div the class "player2" and we delete the class "empty"
     this._player2.classList.add("player2");
     this._player2.classList.remove("empty");
     console.log(this._player2);
   }
 
   generateWeapons() {
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
+    // Recovery of the table containing the boxes that are not asteroids
     const emptyBoxes = document.querySelectorAll(".empty");
 
-    console.log(emptyBoxes);
-
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    // On ajoute à la div la classe "weapon1" et on lui supprime la classe "empty"
+    // We add to the div the class "weapon1" and we delete the class "empty"
     this._weapon1.classList.add("weapon1");
     this._weapon1.classList.remove("empty");
     console.log(this._weapon1);
 
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni weapon1
+    // Recovery of the array containing the boxes that are not asteroids nor weapon1
     const withoutWeapon1Boxes = document.querySelectorAll(".empty");
 
     this._weapon2 =
       withoutWeapon1Boxes[
         Math.floor(Math.random() * withoutWeapon1Boxes.length)
       ];
-    // On ajoute à la div la classe "weapon2" et on lui supprime la classe "empty"
+    // We add to the div the class "weapon2" and we delete the class "empty"
     this._weapon2.classList.add("weapon2");
     this._weapon2.classList.remove("empty");
     console.log(this._weapon2);
 
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni weapon1 ni weapon2
+    // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2
     const withoutWeapon2Boxes = document.querySelectorAll(".empty");
 
     this._weapon3 =
       withoutWeapon2Boxes[
         Math.floor(Math.random() * withoutWeapon2Boxes.length)
       ];
-    // On ajoute à la div la classe "weapon3" et on lui supprime la classe "empty"
+    // We add to the div the class "weapon3" and we delete the class "empty"
     this._weapon3.classList.add("weapon3");
     this._weapon3.classList.remove("empty");
     console.log(this._weapon3);
 
-    // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids ni weapon1 ni weapon2 ni weapon3
+    // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2 nor weapon3
     const withoutWeapon3Boxes = document.querySelectorAll(".empty");
 
     this._weapon4 =
       withoutWeapon3Boxes[
         Math.floor(Math.random() * withoutWeapon3Boxes.length)
       ];
-    // On ajoute à la div la classe "weapon4" et on lui supprime la classe "empty"
+    // We add to the div the class "weapon4" and we delete the class "empty"
     this._weapon4.classList.add("weapon4");
     this._weapon4.classList.remove("empty");
     console.log(this._weapon4);
   }
 
-  highLigth() {
-    // cases de déplacement
-    const boxes = document.querySelectorAll(".box");
-    for (const box of boxes) {
-      if ((parseInt(box.id) - 1) == this._player1.id ||
-        (parseInt(box.id) - 2) == this._player1.id ||
-        (parseInt(box.id) - 3) == this._player1.id ||
-        (parseInt(box.id) + 1) == this._player1.id ||
-        (parseInt(box.id) + 2) == this._player1.id ||
-        (parseInt(box.id) + 3) == this._player1.id ||
-        (parseInt(box.id) - this._x) == this._player1.id ||
-        (parseInt(box.id) - ((this._x) * 2)) == this._player1.id ||
-        (parseInt(box.id) - ((this._x) * 3)) == this._player1.id ||
-        (parseInt(box.id) + this._x) == this._player1.id ||
-        (parseInt(box.id) + ((this._x) * 2)) == this._player1.id ||
-        (parseInt(box.id) + ((this._x) * 3)) == this._player1.id) {
-        box.classList.add("highlight");
+  highLight() {
+
+    const player1Id = this._player1.id;
+    // class of the position x of player 1 
+    const playerPosX = this._player1.classList.item(1);
+    // console.log(playerPosX); Can display for example "x-3"
+
+    // Loop on 3 trajectories (3 boxes in a row)
+    for (let i = 1; i <= 3; i++) {
+      const rigthBox = document.getElementById(parseInt(player1Id) + i);
+      // If the element with the id (number of ID of player1 + the value of i) does not have a class "unreachable" 
+      // AND that same element contains the same class x
+      if (!rigthBox.classList.contains("unreachable") && rigthBox.classList.contains(playerPosX)) {
+        // Add "highlight" class to this element
+        rigthBox.classList.add("highlight");
+      } else {
+        // If the element with the id (number of the id of the player 1 + the value of i) has a class unreachable 
+        // or is not on the same x then we stop the loop to not continue the trajectory of highlight
+        break;
+      }
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      const leftBox = document.getElementById(parseInt(player1Id) - i);
+      if (!leftBox.classList.contains("unreachable") && leftBox.classList.contains(playerPosX)) {
+        leftBox.classList.add("highlight");
+      } else {
+        break;
+      }
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      const bottomBox = document.getElementById(parseInt(player1Id) + (i * 10));
+      if (bottomBox && !bottomBox.classList.contains("unreachable")) {
+        bottomBox.classList.add("highlight");
+      } else {
+        break;
+      }
+    }
+
+    for (let i = 1; i <= 3; i++) {
+      const topBox = document.getElementById(parseInt(player1Id) - (i * 10));
+      if (topBox && !topBox.classList.contains("unreachable")) {
+        topBox.classList.add("highlight");
+      } else {
+        break;
       }
     }
   }
@@ -163,8 +193,9 @@ newBoard.generateBoard();
 newBoard.generateIdForEachBox();
 newBoard.generateUnreachableBoxes();
 newBoard.genaratePlayers();
+newBoard.highLight();
 newBoard.generateWeapons();
-newBoard.highLigth();
+
 
 // genaratePlayers() {
 //   // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
@@ -231,3 +262,24 @@ newBoard.highLigth();
 // let bottomBoxOfPlayer1 = this._player1 `${i}`+1;
 // bottomBoxOfPlayer1.classList.remove("empty")
 // bottomBoxOfPlayer1.classList.add("bottom");
+
+
+
+// for (const box of boxes) {
+//   if ((parseInt(box.id) - 1) == this._player1.id ||
+//     (parseInt(box.id) - 2) == this._player1.id ||
+//     (parseInt(box.id) - 3) == this._player1.id ||
+//     (parseInt(box.id) + 1) == this._player1.id ||
+//     (parseInt(box.id) + 2) == this._player1.id ||
+//     (parseInt(box.id) + 3) == this._player1.id ||
+//     (parseInt(box.id) - this._x) == this._player1.id ||
+//     (parseInt(box.id) - ((this._x) * 2)) == this._player1.id ||
+//     (parseInt(box.id) - ((this._x) * 3)) == this._player1.id ||
+//     (parseInt(box.id) + this._x) == this._player1.id ||
+//     (parseInt(box.id) + ((this._x) * 2)) == this._player1.id ||
+//     (parseInt(box.id) + ((this._x) * 3)) == this._player1.id) {
+//     if (!box.classList.contains("unreachable")) {
+//       box.classList.add("highlight");
+//     }
+//   }
+// }

@@ -22,29 +22,48 @@
     background-image: url('./media/asteroid50px.png');
 }
 
-
-.player1 {
-    background-image: url('./media/players/player1.png');
+[class*="player"]::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    background-size: 90%;
+    background-position: center center;
+    height: 100%;
+    background-repeat: no-repeat;
 }
 
-.player2 {
-    background-image: url('./media/players/player2.png');
+.player1::after {
+    background-image: url('./media/players/deepSpaceNine.png');
 }
 
-.weapon1 {
-    background-image: url('./media/weapons/weapon1.png');
+.player2::after {
+    background-image: url('./media/players/milleniumFalcon.png');
 }
 
-.weapon2 {
-    background-image: url('./media/weapons/weapon2.png');
+[class*="weapon"]::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    background-size: 90%;
+    background-position: center center;
+    height: 100%;
+    background-repeat: no-repeat;
 }
 
-.weapon3 {
-    background-image: url('./media/weapons/weapon3.png');
+.weapon1::after {
+    background-image: url('./media/weapons/lightsaberColdFusion.png');
 }
 
-.weapon4 {
-    background-image: url('./media/weapons/weapon4.png');
+.weapon2::after {
+    background-image: url('./media/weapons/neuralizer.png');
+}
+
+.weapon3::after {
+    background-image: url('./media/weapons/triBarrelPlasmaGun.png');
+}
+
+.weapon4::after {
+    background-image: url('./media/weapons/noisyCricket.png');
 }
 
 .highlight {
