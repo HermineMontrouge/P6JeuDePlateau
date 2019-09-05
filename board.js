@@ -44,8 +44,7 @@ class Board {
     for (let i = 0; i < 14; i++) {
       this._unreachableBox = boxes[Math.floor(Math.random() * boxes.length)];
       // We add the class "unreachable" and we delete the class "empty" of each <div asteroid>
-      this._unreachableBox.classList.add("unreachable");
-      this._unreachableBox.classList.remove("empty");
+      this._unreachableBox.classList.replace("empty", "unreachable");
     }
     console.log(boxes);
   }
@@ -56,8 +55,7 @@ class Board {
 
     this._player1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "player1" and we delete the class "empty"
-    this._player1.classList.add("player1");
-    this._player1.classList.remove("empty");
+    this._player1.classList.replace("empty", "player1");
     console.log(this._player1);
 
     // We wish that player 2 does not appear side by side of player1
@@ -69,8 +67,7 @@ class Board {
         (parseInt(box.id) + 1) == this._player1.id ||
         (parseInt(box.id) - this._x) == this._player1.id ||
         (parseInt(box.id) + this._x) == this._player1.id) {
-        box.classList.add("adjacentBox");
-        box.classList.remove("empty");
+        box.classList.replace("empty", "adjacentBox");
       }
     }
 
@@ -82,8 +79,7 @@ class Board {
         Math.floor(Math.random() * withoutPlayer1Boxes.length)
       ];
     // We add to the div the class "player2" and we delete the class "empty"
-    this._player2.classList.add("player2");
-    this._player2.classList.remove("empty");
+    this._player2.classList.replace("empty", "player2");
     console.log(this._player2);
   }
 
@@ -93,8 +89,7 @@ class Board {
 
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "weapon1" and we delete the class "empty"
-    this._weapon1.classList.add("weapon1");
-    this._weapon1.classList.remove("empty");
+    this._weapon1.classList.replace("empty", "weapon1");
     console.log(this._weapon1);
 
     // Recovery of the array containing the boxes that are not asteroids nor weapon1
@@ -105,8 +100,7 @@ class Board {
         Math.floor(Math.random() * withoutWeapon1Boxes.length)
       ];
     // We add to the div the class "weapon2" and we delete the class "empty"
-    this._weapon2.classList.add("weapon2");
-    this._weapon2.classList.remove("empty");
+    this._weapon2.classList.replace("empty", "weapon2");
     console.log(this._weapon2);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2
@@ -117,8 +111,7 @@ class Board {
         Math.floor(Math.random() * withoutWeapon2Boxes.length)
       ];
     // We add to the div the class "weapon3" and we delete the class "empty"
-    this._weapon3.classList.add("weapon3");
-    this._weapon3.classList.remove("empty");
+    this._weapon3.classList.replace("empty", "weapon3");
     console.log(this._weapon3);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2 nor weapon3
@@ -129,8 +122,7 @@ class Board {
         Math.floor(Math.random() * withoutWeapon3Boxes.length)
       ];
     // We add to the div the class "weapon4" and we delete the class "empty"
-    this._weapon4.classList.add("weapon4");
-    this._weapon4.classList.remove("empty");
+    this._weapon4.classList.replace("empty", "weapon4");
     console.log(this._weapon4);
   }
 
@@ -140,6 +132,8 @@ class Board {
     // class of the position x of player 1 
     const playerPosX = this._player1.classList.item(1);
     // console.log(playerPosX); Can display for example "x-3"
+
+    this._player1.classList.add("highlight");
 
     // Loop on 3 trajectories (3 boxes in a row)
     for (let i = 1; i <= 3; i++) {
