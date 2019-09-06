@@ -77,7 +77,6 @@ class Board {
   generateWeapons() {
     // Recovery of the table containing the boxes that are not players
     const emptyBoxes = document.querySelectorAll(".empty");
-    console.log(emptyBoxes);
 
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "weapon1" and we delete the class "empty"
@@ -122,7 +121,6 @@ class Board {
 
     // Recovery of the table containing the boxes that are not players or weapons
     const lastEmptyBoxes = document.querySelectorAll(".empty");
-    console.log(lastEmptyBoxes);
 
     // Random generation of 14 asteroids (sometimes less if they overlap)
     for (let i = 0; i < 14; i++) {
@@ -130,68 +128,6 @@ class Board {
       // We add the class "unreachable" and we delete the class "empty" of each <div asteroid>
       this._unreachableBox.classList.remove("empty");
       this._unreachableBox.classList.add("unreachable");
-    }
-  }
-
-  highLight() {
-    const player1Id = this._player1.id;
-    // class of the position y of player 1
-    const playerPosY = this._player1.classList.item(2);
-    // console.log(playerPosY); Can display for example "x-3"
-    console.log(playerPosY);
-
-    this._player1.classList.add("highlight");
-
-    // Loop on 3 trajectories (3 boxes in a row)
-    for (let i = 1; i <= 3; i++) {
-      const rigthBox = document.getElementById(parseInt(player1Id) + i);
-      // If the element with the id (number of ID of player1 + the value of i) does not have a class "unreachable"
-      // AND that same element contains the same class x
-      if (rigthBox == null) {
-        break; // in case player is on id 97 98 or 99
-      } else if (
-        !rigthBox.classList.contains("unreachable") &&
-        rigthBox.classList.contains(playerPosY)
-      ) {
-        // Add "highlight" class to this element
-        rigthBox.classList.add("highlight");
-      } else {
-        // If the element with the id (number of the id of the player 1 + the value of i) has a class unreachable
-        // or is not on the same x then we stop the loop to not continue the trajectory of highlight
-        break;
-      }
-    }
-
-    for (let i = 1; i <= 3; i++) {
-      const leftBox = document.getElementById(parseInt(player1Id) - i);
-      if (leftBox == null) {
-        break; // in case player is on id 97 98 or 99
-      } else if (
-        !leftBox.classList.contains("unreachable") &&
-        leftBox.classList.contains(playerPosY)
-      ) {
-        leftBox.classList.add("highlight");
-      } else {
-        break;
-      }
-    }
-
-    for (let i = 1; i <= 3; i++) {
-      const bottomBox = document.getElementById(parseInt(player1Id) + i * 10);
-      if (bottomBox && !bottomBox.classList.contains("unreachable")) {
-        bottomBox.classList.add("highlight");
-      } else {
-        break;
-      }
-    }
-
-    for (let i = 1; i <= 3; i++) {
-      const topBox = document.getElementById(parseInt(player1Id) - i * 10);
-      if (topBox && !topBox.classList.contains("unreachable")) {
-        topBox.classList.add("highlight");
-      } else {
-        break;
-      }
     }
   }
 }
@@ -205,7 +141,7 @@ newBoard.generateIdForEachBox();
 newBoard.genaratePlayers();
 newBoard.generateWeapons();
 newBoard.generateUnreachableBoxes();
-newBoard.highLight();
+
 
 // genaratePlayers() {
 //   // Récupération du tableau contenant les boîtes qui ne sont pas des asteroids
