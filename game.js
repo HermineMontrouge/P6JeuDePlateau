@@ -1,10 +1,12 @@
 class Game {
     constructor() {
-        this.gameBoard = new Board(10, 10, 14);
-        this.currentPlayer;
-        this.currentEnemy;
-        this.endGame = false;
-        this.fighting = false;
+        this._gameBoard = new Board(10, 10, 14);
+        this._currentPlayer;
+        this._currentEnemy;
+        this._endGame = false;
+        this._fighting = false;
+        this._player1;
+        this._player2;
     }
 
     whoHasToPlay() {
@@ -12,28 +14,30 @@ class Game {
 
         const getPlayer1 = document.getElementsByClassName("player1");
         const getPlayer2 = document.getElementsByClassName("player2");
-        const player1 = getPlayer1[0];
-        const player2 = getPlayer2[0];
-        console.log(player1);
-        console.log(player2);
+        this._player1 = getPlayer1[0];
+        this._player2 = getPlayer2[0];
+        console.log(this._player1);
+        console.log(this._player2);
 
-        if (this.currentPlayer == player1) {
-            this.currentPlayer = player1;
-            this.currentEnemy = player2;
-        } else if (this.currentPlayer == player2) {
-            this.currentPlayer = player2;
-            this.currentEnemy = player1;
+        if (this._currentPlayer == this._player1) {
+            this._currentPlayer = this._player1;
+            this._currentEnemy = this._player2;
+        } else if (this._currentPlayer == this._player2) {
+            this._currentPlayer = this._player2;
+            this._currentEnemy = this._player1;
         }
     }
 
     move() {
         // Listening the box id choice
         const boxes = document.querySelectorAll(".box");
+        console.log(this._player1);
         for (let box of boxes) {
             if (box.classList.contains("highlight")) {
-                box.addEventListener("click", function (id) {
-                    let boxPosition = id.target.innerHTML;
-                    console.log(boxPosition);
+                box.addEventListener("click", function () {
+                    this._player1.classList.remove("player1", "empty");
+                    box.classList.replace("highlight", "player1");
+                    console.log(box);
                 });
             }
         }
