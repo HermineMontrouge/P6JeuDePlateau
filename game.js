@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this._gameBoard = new Board(10, 10, 14);
-        this._currentPlayer;
+        this._currentPlayer = 'player1';
         this._currentEnemy;
         this._endGame = false;
         this._fighting = false;
@@ -12,12 +12,16 @@ class Game {
     whoHasToPlay() {
         // turn-based running
 
+        if (this._currentPlayer === 'player1') {
+            this._currentPlayer = 'player2'
+        }
+
         const getPlayer1 = document.getElementsByClassName("player1");
         const getPlayer2 = document.getElementsByClassName("player2");
         this._player1 = getPlayer1[0];
         this._player2 = getPlayer2[0];
-        console.log(this._player1);
-        console.log(this._player2);
+        // console.log(this._player1);
+        // console.log(this._player2);
 
         if (this._currentPlayer == this._player1) {
             this._currentPlayer = this._player1;
@@ -30,7 +34,7 @@ class Game {
 
     highLight() {
 
-        this._currentPlayer = this._player2;
+        this._currentPlayer = this._player1;
         const player1Id = this._currentPlayer.id;
         // class of the position y of player 1
         const playerPosY = this._currentPlayer.classList.item(2);
@@ -93,27 +97,47 @@ class Game {
 
     move() {
         // Listening the box id choice
+
+        // console.log(this._currentPlayer)
+        console.log('===')
+        
+
+        // for (let box of boxes) {
+        //     if (box.classList.contains("highlight")) {
+        //         box.addEventListener("click", function () {
+        //             // console.log(this._currentPlayer);
+
+        //             console.log('====')
+
+        //             if (this._currentPlayer == this._player1) {
+        //                 // this._currentPlayer.classList.remove("player1");
+        //                 box.classList.replace("highlight", "player1");
+        //                 this._currentPlayer = this._player2;
+        //             } else if (this._currentPlayer == this._player2) {
+        //                 // this._currentPlayer.classList.remove("player2");
+        //                 box.classList.replace("highlight", "player2");
+        //                 this._currentPlayer = this._player1;
+        //             }
+        //         });
+        //     }
+        // }
+
+        // this.move()
+    }
+
+    bindEvent() {
+        const that = this
+
         const boxes = document.querySelectorAll(".box");
-
         for (let box of boxes) {
-            if (box.classList.contains("highlight")) {
-                box.addEventListener("click", function () {
-                    console.log(this._currentPlayer);
-
-                    if (this._currentPlayer == this._player1) {
-                        // this._currentPlayer.classList.remove("player1");
-                        box.classList.replace("highlight", "player1");
-                        this._currentPlayer = this._player2;
-                    } else if (this._currentPlayer == this._player2) {
-                        // this._currentPlayer.classList.remove("player2");
-                        box.classList.replace("highlight", "player2");
-                        this._currentPlayer = this._player1;
-                    }
-
-                });
-            }
+            box.addEventListener("click", function () {
+                // console.log(this)
+                that.move()
+            });
         }
     }
+
+    
 
     swapWeapon() {
         // Swap the currentPlayer weapon against the one on his box
@@ -125,5 +149,7 @@ const newGame = new Game;
 
 newGame.whoHasToPlay();
 newGame.highLight();
-newGame.move();
+newGame.bindEvent();
 newGame.swapWeapon();
+
+// Etat initial de ma classe = c'est le player 1 qui joue

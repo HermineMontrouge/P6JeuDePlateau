@@ -44,7 +44,7 @@ class Board {
     // We add to the div the class "player1" and we delete the class "empty"
     this._player1.classList.remove("empty");
     this._player1.classList.add("player1");
-    console.log(this._player1);
+    // console.log(this._player1);
 
     // We wish that player 2 does not appear side by side of player1
     // For each box whose index of the array is -1 +1 -10 +10 of the index of player1 remove the class empty
@@ -71,7 +71,7 @@ class Board {
     // We add to the div the class "player2" and we delete the class "empty"
     this._player2.classList.remove("empty");
     this._player2.classList.add("player2");
-    console.log(this._player2);
+    // console.log(this._player2);
   }
 
   generateWeapons() {
@@ -81,7 +81,7 @@ class Board {
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "weapon1" and we delete the class "empty"
     this._weapon1.classList.replace("empty", "weapon1");
-    console.log(this._weapon1);
+    // console.log(this._weapon1);
 
     // Recovery of the array containing the boxes that are not asteroids nor weapon1
     const withoutWeapon1Boxes = document.querySelectorAll(".empty");
@@ -92,7 +92,7 @@ class Board {
       ];
     // We add to the div the class "weapon2" and we delete the class "empty"
     this._weapon2.classList.replace("empty", "weapon2");
-    console.log(this._weapon2);
+    // console.log(this._weapon2);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2
     const withoutWeapon2Boxes = document.querySelectorAll(".empty");
@@ -103,7 +103,7 @@ class Board {
       ];
     // We add to the div the class "weapon3" and we delete the class "empty"
     this._weapon3.classList.replace("empty", "weapon3");
-    console.log(this._weapon3);
+    // console.log(this._weapon3);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2 nor weapon3
     const withoutWeapon3Boxes = document.querySelectorAll(".empty");
@@ -114,7 +114,7 @@ class Board {
       ];
     // We add to the div the class "weapon4" and we delete the class "empty"
     this._weapon4.classList.replace("empty", "weapon4");
-    console.log(this._weapon4);
+    // console.log(this._weapon4);
   }
 
   generateUnreachableBoxes() {
