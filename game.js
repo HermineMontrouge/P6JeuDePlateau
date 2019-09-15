@@ -1,5 +1,4 @@
 class Game {
-
   constructor() {
     this._gameBoard = new Board(10, 10, 14);
     this._currentPlayer = "player1";
@@ -13,21 +12,27 @@ class Game {
   whoHasToPlay() {
     // turn-based running
 
+    console.log("je passe dans howhasto play");
+
     if (this._currentPlayer === "player1") {
       this._currentPlayer = "player2";
+    } else {
+      this._currentPlayer = "player1";
     }
 
-    // if (this._currentPlayer == this._player1) {
-    //   this._currentPlayer = this._player1;
-    //   this._currentEnemy = this._player2;
-    // } else if (this._currentPlayer == this._player2) {
-    //   this._currentPlayer = this._player2;
-    //   this._currentEnemy = this._player1;
-    // }
+    if (this._currentPlayer = "player1") {
+      this._currentEnemy = "player2";
+    } else {
+      this._currentEnemy = "player1";
+    }
   }
 
   highLight() {
-    this._currentPlayer = document.getElementsByClassName("player1")[0];
+
+    console.log("je passe dans highlight");
+
+    this._currentPlayer = document.getElementsByClassName(this._currentPlayer)[0];
+
     const playerId = this._currentPlayer.id;
     // class of the position y of player 1
     const playerPosY = this._currentPlayer.classList.item(2);
@@ -89,51 +94,29 @@ class Game {
   }
 
   move() {
+    console.log("je passe dans move");
 
-    console.log(this._player1);
-    this._player1.classList.remove("player1");
-    this._player1.classList.add("empty");
+    this._currentPlayer.classList.remove(this._currentPlayer.classList.item(3));
+    this.whoHasToPlay();
+    // this.highLight();
 
-
-    // this._currentPlayer = this._player2;
-    // Listening the box id choice
-
-    // console.log(this._currentPlayer)
     console.log(this);
-
-    // for (let box of boxes) {
-    //     if (box.classList.contains("highlight")) {
-    //         box.addEventListener("click", function () {
-    //             // console.log(this._currentPlayer);
-
-    //             console.log('====')
-
-    //             if (this._currentPlayer == this._player1) {
-    //                 // this._currentPlayer.classList.remove("player1");
-    //                 box.classList.replace("highlight", "player1");
-    //                 this._currentPlayer = this._player2;
-    //             } else if (this._currentPlayer == this._player2) {
-    //                 // this._currentPlayer.classList.remove("player2");
-    //                 box.classList.replace("highlight", "player2");
-    //                 this._currentPlayer = this._player1;
-    //             }
-    //         });
-    //     }
-    // }
-
-    // this.move()
+    console.log(this._currentPlayer);
   }
 
   bindEvent() {
+    console.log("je passe dans bindEvent");
+    console.log(this._currentPlayer);
     const that = this;
 
     const boxes = document.querySelectorAll(".box");
     for (let box of boxes) {
-      box.addEventListener("click", function () {
-        console.log(this);
+      box.addEventListener("click", function() {
+        console.log("je passe dans bindEvent");
+        console.log(this._currentPlayer);
         that.move();
-        that.whoHasToPlay();
         this.classList.add("player1");
+        this.classList.remove("empty");
       });
     }
   }
