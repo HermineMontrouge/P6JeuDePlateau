@@ -1,12 +1,15 @@
 class Game {
+
+  _gameBoard = new Board(10, 10, 14);
+  _currentPlayerDiv = document.getElementsByClassName("player1")[0];
+  _currentPlayer = "player1";
+  _currentEnemy;
+  _endGame = false;
+  _fighting = false;
+
   constructor() {
-    this._gameBoard = new Board(10, 10, 14);
-    this._currentPlayer = "player1";
-    this._currentEnemy;
-    this._endGame = false;
-    this._fighting = false;
-    this._player1 = document.getElementsByClassName("player1")[0];
-    this._player2 = document.getElementsByClassName("player2")[0];
+    // this._player1 = document.getElementsByClassName("player1")[0];
+    // this._player2 = document.getElementsByClassName("player2")[0];
   }
 
   whoHasToPlay() {
@@ -16,29 +19,26 @@ class Game {
 
     if (this._currentPlayer === "player1") {
       this._currentPlayer = "player2";
+      this._currentEnemy = "player1";
     } else {
       this._currentPlayer = "player1";
-    }
-
-    if (this._currentPlayer = "player1") {
       this._currentEnemy = "player2";
-    } else {
-      this._currentEnemy = "player1";
     }
   }
 
-  highLight() {
+  highlight() {
 
     console.log("je passe dans highlight");
 
-    this._currentPlayer = document.getElementsByClassName(this._currentPlayer)[0];
+    //this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+    console.log("this._currentPlayer", this._currentPlayerDiv);
 
-    const playerId = this._currentPlayer.id;
+    const playerId = this._currentPlayerDiv.id;
     // class of the position y of player 1
-    const playerPosY = this._currentPlayer.classList.item(2);
+    const playerPosY = this._currentPlayerDiv.classList.item(2);
     // console.log(playerPosY); Can display for example "y-3"
 
-    this._currentPlayer.classList.add("highlight");
+    this._currentPlayerDiv.classList.add("highlight");
 
     // Loop on 3 trajectories (3 boxes in a row)
     for (let i = 1; i <= 3; i++) {
@@ -96,29 +96,58 @@ class Game {
   move() {
     console.log("je passe dans move");
 
-    this._currentPlayer.classList.remove(this._currentPlayer.classList.item(3));
-    this.whoHasToPlay();
-    // this.highLight();
+    // if (this._currentPlayer === "player1") {
+    //   this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+    //   this._currentPlayerDiv.classList.remove(this._currentPlayerDiv.classList.item(3));
+    //   console.log("on veut savoir : ", document.getElementsByClassName("player1"));
+    // } else {
+    //   console.log("c'est le tour de player2")
+    //   this._currentPlayerDiv.classList.remove(this._currentPlayerDiv.classList.item(3));
+    // }
+    this.highlight();
+    //this.bindEvent()
+    // this.whoHasToPlay();
 
-    console.log(this);
-    console.log(this._currentPlayer);
+
+    // console.log(this);
+    // console.log(this._currentPlayer);
   }
 
   bindEvent() {
-    console.log("je passe dans bindEvent");
-    console.log(this._currentPlayer);
-    const that = this;
 
-    const boxes = document.querySelectorAll(".box");
-    for (let box of boxes) {
-      box.addEventListener("click", function() {
-        console.log("je passe dans bindEvent");
-        console.log(this._currentPlayer);
-        that.move();
-        this.classList.add("player1");
-        this.classList.remove("empty");
-      });
-    }
+    const that = this;
+    const board = document.getElementById("board");
+
+    board.addEventListener("click", function (el) {
+
+      if (!el.path[0].classList.contains("highlight")) return;
+
+      // Retrieve tag player and add empty class to the old one
+      that._currentPlayerDiv.classList.remove("player1")
+      that._currentPlayerDiv.classList.add("empty")
+
+      // Add tag player and remove empty class to the new one
+      el.path[0].classList.add("player1");
+      el.path[0].classList.remove("empty");
+
+      that._currentPlayerDiv = el.path[0]
+      that.resetHighlight();
+      that.highlight()
+
+      // this._currentPlayer = document.getElementsByClassName("player1")[0];
+      // console.log(this._currentPlayer);
+    });
+
+  }
+
+  resetHighlight() {
+    const highlightBoxes = document.getElementsByClassName("highlight");
+    console.log('resetHighlight', highlightBoxes)
+
+    Array.from(highlightBoxes).map(box => {
+      box.classList.remove("highlight");
+    })
+
   }
 
   swapWeapon() {
@@ -128,6 +157,6 @@ class Game {
 
 const newGame = new Game();
 
-newGame.highLight();
+newGame.highlight();
 newGame.bindEvent();
 newGame.swapWeapon();
