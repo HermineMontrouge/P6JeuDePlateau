@@ -15,12 +15,19 @@ class Game {
   whoHasToPlay() {
     // turn-based running
 
-    if (this._currentPlayer === "player1") {
-      this._currentPlayer = "player2";
-      this._currentEnemy = "player1";
+    // if (this._currentPlayer === "player1") {
+    //   this._currentPlayer = "player2";
+    //   this._currentEnemy = "player1";
+    // } else {
+    //   this._currentPlayer = "player1";
+    //   this._currentEnemy = "player2";
+    // }
+
+    if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
+      console.log('====')
+      this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
     } else {
-      this._currentPlayer = "player1";
-      this._currentEnemy = "player2";
+      this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
     }
   }
 
@@ -33,12 +40,8 @@ class Game {
     /**
      * REVIEW: permet de switcher de player
      */
-    if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
-      console.log('====')
-      this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
-    } else {
-      this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
-    }
+    
+    this.whoHasToPlay()
 
     const playerId = this._currentPlayerDiv.id;
 
@@ -135,8 +138,15 @@ class Game {
       that._currentPlayerDiv.classList.remove("player1")
       that._currentPlayerDiv.classList.add("empty")
 
+      
       // Add tag player and remove empty class to the new one
-      el.path[0].classList.add("player1");
+      
+      if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
+        el.path[0].classList.add("player1");
+      } else {
+        el.path[0].classList.add("player2");
+      }
+
       el.path[0].classList.remove("empty");
 
       that._currentPlayerDiv = el.path[0]
