@@ -15,8 +15,6 @@ class Game {
   whoHasToPlay() {
     // turn-based running
 
-    console.log("je passe dans howhasto play");
-
     if (this._currentPlayer === "player1") {
       this._currentPlayer = "player2";
       this._currentEnemy = "player1";
@@ -28,15 +26,27 @@ class Game {
 
   highlight() {
 
-    console.log("je passe dans highlight");
 
     //this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
-    console.log("this._currentPlayer", this._currentPlayerDiv);
+    // console.log("this._currentPlayer", this._currentPlayerDiv);
+
+    /**
+     * REVIEW: permet de switcher de player
+     */
+    if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
+      console.log('====')
+      this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
+    } else {
+      this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
+    }
 
     const playerId = this._currentPlayerDiv.id;
+
+    console.log("this._currentPlayer", this._currentPlayerDiv);
+    console.log('playerId', playerId)
+
     // class of the position y of player 1
     const playerPosY = this._currentPlayerDiv.classList.item(2);
-    // console.log(playerPosY); Can display for example "y-3"
 
     this._currentPlayerDiv.classList.add("highlight");
 
@@ -94,7 +104,6 @@ class Game {
   }
 
   move() {
-    console.log("je passe dans move");
 
     // if (this._currentPlayer === "player1") {
     //   this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
@@ -131,6 +140,8 @@ class Game {
       el.path[0].classList.remove("empty");
 
       that._currentPlayerDiv = el.path[0]
+
+
       that.resetHighlight();
       that.highlight()
 
@@ -142,7 +153,6 @@ class Game {
 
   resetHighlight() {
     const highlightBoxes = document.getElementsByClassName("highlight");
-    console.log('resetHighlight', highlightBoxes)
 
     Array.from(highlightBoxes).map(box => {
       box.classList.remove("highlight");
