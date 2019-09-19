@@ -1,15 +1,21 @@
 class Game {
 
-  _gameBoard = new Board(10, 10, 14);
-  _currentPlayerDiv = document.getElementsByClassName("player1")[0];
-  _currentPlayer = "player1";
-  _currentEnemy;
-  _endGame = false;
-  _fighting = false;
+  // _gameBoard = new Board(10, 10, 14);
+  // _currentPlayerDiv = document.getElementsByClassName("player1")[0];
+  // _currentPlayer = "player1";
+  // _currentEnemy;
+  // _endGame = false;
+  // _fighting = false;
 
   constructor() {
     // this._player1 = document.getElementsByClassName("player1")[0];
     // this._player2 = document.getElementsByClassName("player2")[0];
+    this._gameBoard = new Board(10, 10, 14);
+    this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+    this._currentPlayer = "player1";
+    this._currentEnemy;
+    this._endGame = false;
+    this._fighting = false;
   }
 
   whoHasToPlay() {
