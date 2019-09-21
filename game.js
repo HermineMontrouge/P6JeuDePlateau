@@ -14,29 +14,31 @@ class Game {
 
   whoHasToPlay() {
     // turn-based running
+    console.log("je passe dans whoHasToPlay");
 
-    console.log("je passe dans howhasto play");
-
-    if (this._currentPlayer === "player1") {
-      this._currentPlayer = "player2";
-      this._currentEnemy = "player1";
+    if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
+      // console.log('current player === div player1')
+      this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
     } else {
-      this._currentPlayer = "player1";
-      this._currentEnemy = "player2";
+      // console.log('current player === div player2')
+      this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
     }
+
   }
 
   highlight() {
 
+    this.whoHasToPlay();
+
     console.log("je passe dans highlight");
 
-    //this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
-    console.log("this._currentPlayer", this._currentPlayerDiv);
-
     const playerId = this._currentPlayerDiv.id;
+
+    console.log("this._currentPlayer", this._currentPlayerDiv);
+    // console.log('playerId', playerId)
+
     // class of the position y of player 1
     const playerPosY = this._currentPlayerDiv.classList.item(2);
-    // console.log(playerPosY); Can display for example "y-3"
 
     this._currentPlayerDiv.classList.add("highlight");
 
@@ -94,6 +96,7 @@ class Game {
   }
 
   move() {
+
     console.log("je passe dans move");
 
     // if (this._currentPlayer === "player1") {
@@ -115,6 +118,9 @@ class Game {
 
   bindEvent() {
 
+    console.log("je passe dans bindevent");
+
+
     const that = this;
     const board = document.getElementById("board");
 
@@ -122,30 +128,40 @@ class Game {
 
       if (!el.path[0].classList.contains("highlight")) return;
 
-      // Retrieve tag player and add empty class to the old one
-      that._currentPlayerDiv.classList.remove("player1")
-      that._currentPlayerDiv.classList.add("empty")
 
-      // Add tag player and remove empty class to the new one
-      el.path[0].classList.add("player1");
-      el.path[0].classList.remove("empty");
+      console.log("currentPlayerDiv", that._currentPlayerDiv);       // renvoie la div de current player de player1
 
-      that._currentPlayerDiv = el.path[0]
+
+      if (this._currentPlayerDiv = document.getElementsByClassName("player1")[0]) {
+        console.log('current player === div player1')
+        that._currentPlayerDiv.classList.remove("player1")
+        that._currentPlayerDiv.classList.add("empty")
+        el.path[0].classList.add("player1");
+        el.path[0].classList.remove("empty");
+        this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
+      } else {
+        console.log('current player === div player2')
+        that._currentPlayerDiv.classList.remove("player2")
+        that._currentPlayerDiv.classList.add("empty")
+        el.path[0].classList.add("player2");
+        el.path[0].classList.remove("empty");
+        this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
+      }
+
       that.resetHighlight();
       that.highlight()
-
-      // this._currentPlayer = document.getElementsByClassName("player1")[0];
-      // console.log(this._currentPlayer);
     });
 
   }
 
   resetHighlight() {
+
+    console.log("je passe dans resetHighlight");
     const highlightBoxes = document.getElementsByClassName("highlight");
-    console.log('resetHighlight', highlightBoxes)
 
     Array.from(highlightBoxes).map(box => {
       box.classList.remove("highlight");
+      box.classList.remove("adjacentBox");
     })
 
   }
