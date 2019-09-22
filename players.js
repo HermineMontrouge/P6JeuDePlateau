@@ -3,9 +3,6 @@ class Player {
     this.name = name;
     this.hp = hp;
     this.weapon = weapon;
-    this.boxes;
-    this.x = x;
-    this.y = y;
   }
 
 
@@ -16,6 +13,5 @@ class Player {
 
 const newPlayer = new Player();
 
-const player1 = new Player("Deep Space Nine", 100, weapon0);
-const player2 = new Player("Millenium Falcon", 100, weapon0);
-
+const player1 = new Player("player1", 100, weapon0);
+const player2 = new Player("player2", 100, weapon0);
