@@ -22,8 +22,6 @@ class Game {
       // console.log('current player === div player2')
       this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
     }
-
-    console.log(this._currentPlayerDiv)
   }
 
   highlight() {
@@ -93,6 +91,7 @@ class Game {
   move() {
 
     console.log("je passe dans move");
+    console.log("current playerdiv dans move()",this._currentPlayerDiv);
 
     // if (this._currentPlayer === "player1") {
     //   this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
@@ -121,14 +120,19 @@ class Game {
 
     board.addEventListener("click", function (el) {
 
+      console.log("///////////NEW CLICK//////////")
       if (!el.path[0].classList.contains("highlight")) return;
 
 
-      console.log("currentPlayerDiv", that._currentPlayerDiv);       // renvoie la div de current player de player1
+      console.log("console.log(that) = ", that)
+      // console.log("outer" , that._currentPlayerDiv.outerHTML)
+      console.log("console.log(that._currentPlayerDiv =", that._currentPlayerDiv);   
+      console.log(document.getElementsByClassName("player1")[0])
+      console.log(el.path[0])    // renvoie la div de current player de player1
 
       // Add tag player and remove empty class to the new one
       
-      if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
+      if (that._currentPlayerDiv.outerHTML == document.getElementsByClassName("player1")[0]) {
         that._currentPlayerDiv.classList.remove("player1")
         that._currentPlayerDiv.classList.add("player1")
         el.path[0].classList.add("player1");
@@ -142,10 +146,11 @@ class Game {
 
       el.path[0].classList.remove("empty");
       that._currentPlayerDiv = el.path[0]
+      el.path[0] = this._currentEnemy;
 
       that.resetHighlight();
       that.whoHasToPlay();
-      that.highlight()
+      that.highlight();
 
     });
 
