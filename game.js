@@ -1,15 +1,14 @@
 class Game {
 
-  _gameBoard = new Board(10, 10, 14);
-  _currentPlayerDiv = document.getElementsByClassName("player1")[0];
-  _currentPlayer = "player1";
-  _currentEnemy;
-  _endGame = false;
-  _fighting = false;
-
   constructor() {
     // this._player1 = document.getElementsByClassName("player1")[0];
     // this._player2 = document.getElementsByClassName("player2")[0];
+    this._gameBoard = new Board(10, 10, 14);
+    this._currentPlayerDiv = document.getElementsByClassName("player2")[0];
+    this._currentPlayer = "player1";
+    this._currentEnemy;
+    this._endGame = false;
+    this._fighting = false;
   }
 
   whoHasToPlay() {
@@ -24,18 +23,14 @@ class Game {
       this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
     }
 
+    console.log(this._currentPlayerDiv)
   }
 
   highlight() {
 
-    this.whoHasToPlay();
-
     console.log("je passe dans highlight");
 
     const playerId = this._currentPlayerDiv.id;
-
-    console.log("this._currentPlayer", this._currentPlayerDiv);
-    // console.log('playerId', playerId)
 
     // class of the position y of player 1
     const playerPosY = this._currentPlayerDiv.classList.item(2);
@@ -131,16 +126,13 @@ class Game {
 
       console.log("currentPlayerDiv", that._currentPlayerDiv);       // renvoie la div de current player de player1
 
-
-      if (this._currentPlayerDiv = document.getElementsByClassName("player1")[0]) {
-        console.log('current player === div player1')
+      // Add tag player and remove empty class to the new one
+      
+      if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
         that._currentPlayerDiv.classList.remove("player1")
-        that._currentPlayerDiv.classList.add("empty")
+        that._currentPlayerDiv.classList.add("player1")
         el.path[0].classList.add("player1");
-        el.path[0].classList.remove("empty");
-        this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
       } else {
-        console.log('current player === div player2')
         that._currentPlayerDiv.classList.remove("player2")
         that._currentPlayerDiv.classList.add("empty")
         el.path[0].classList.add("player2");
@@ -148,8 +140,13 @@ class Game {
         this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
       }
 
+      el.path[0].classList.remove("empty");
+      that._currentPlayerDiv = el.path[0]
+
       that.resetHighlight();
+      that.whoHasToPlay();
       that.highlight()
+
     });
 
   }
@@ -174,5 +171,5 @@ class Game {
 const newGame = new Game();
 
 newGame.highlight();
-newGame.bindEvent();
+newGame.bindEvent()
 newGame.swapWeapon();
