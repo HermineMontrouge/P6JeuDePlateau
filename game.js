@@ -1,3 +1,6 @@
+
+// remane class Move
+
 class Game {
 
   constructor() {
@@ -5,7 +8,7 @@ class Game {
     // this._player2 = document.getElementsByClassName("player2")[0];
     this._gameBoard = new Board(10, 10, 14);
     this._currentPlayerDiv = document.getElementsByClassName("player2")[0];
-    this._currentPlayer = "player1";
+    this._currentPlayer = "player2";
     this._currentEnemy;
     this._endGame = false;
     this._fighting = false;
@@ -17,10 +20,12 @@ class Game {
 
     if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
       // console.log('current player === div player1')
-      this._currentPlayerDiv = document.getElementsByClassName("player2")[0]
+      this._currentPlayerDiv = document.getElementsByClassName("player2")[0];
+      this._currentPlayer = "player2";
     } else {
       // console.log('current player === div player2')
-      this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
+      this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+      this._currentPlayer = "player1";
     }
   }
 
@@ -123,27 +128,27 @@ class Game {
       console.log("///////////NEW CLICK//////////")
       if (!el.path[0].classList.contains("highlight")) return;
 
-
+      
       console.log("console.log(that) = ", that)
       // console.log("outer" , that._currentPlayerDiv.outerHTML)
       console.log("console.log(that._currentPlayerDiv =", that._currentPlayerDiv);   
+      console.log("console.log(that._currentPlayer =", that._currentPlayer);   
       console.log(document.getElementsByClassName("player1")[0])
       console.log(el.path[0])    // renvoie la div de current player de player1
 
       // Add tag player and remove empty class to the new one
       
-      if (that._currentPlayerDiv.outerHTML == document.getElementsByClassName("player1")[0]) {
-        that._currentPlayerDiv.classList.remove("player1")
-        that._currentPlayerDiv.classList.add("player1")
+      
+      if (that._currentPlayer == "player1") {
+        that._currentPlayerDiv.classList.remove("player1");
         el.path[0].classList.add("player1");
-      } else {
-        that._currentPlayerDiv.classList.remove("player2")
-        that._currentPlayerDiv.classList.add("empty")
+      } else if(that._currentPlayer == "player2") {
+        that._currentPlayerDiv.classList.remove("player2");
         el.path[0].classList.add("player2");
-        el.path[0].classList.remove("empty");
-        this._currentPlayerDiv = document.getElementsByClassName("player1")[0]
+        this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
       }
 
+      that._currentPlayerDiv.classList.add("empty")
       el.path[0].classList.remove("empty");
       that._currentPlayerDiv = el.path[0]
       el.path[0] = this._currentEnemy;

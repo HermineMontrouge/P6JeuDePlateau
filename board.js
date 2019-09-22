@@ -78,6 +78,8 @@ class Board {
     // Recovery of the table containing the boxes that are not players
     const emptyBoxes = document.querySelectorAll(".empty");
 
+    console.log(weapon0);
+
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "weapon1" and we delete the class "empty"
     this._weapon1.classList.replace("empty", "weapon1");
