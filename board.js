@@ -5,6 +5,7 @@ class Board {
     this._unreachableBox = unreachableBox;
     this._player1;
     this._player2;
+    this._weapon0;
     this._weapon1;
     this._weapon2;
     this._weapon3;
@@ -78,11 +79,12 @@ class Board {
     // Recovery of the table containing the boxes that are not players
     const emptyBoxes = document.querySelectorAll(".empty");
 
-    console.log(weapon0);
+    this._weapon0 = weapon0;
 
     this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     // We add to the div the class "weapon1" and we delete the class "empty"
     this._weapon1.classList.replace("empty", "weapon1");
+    this._weapon1 = weapon1;
     // console.log(this._weapon1);
 
     // Recovery of the array containing the boxes that are not asteroids nor weapon1
@@ -94,6 +96,7 @@ class Board {
       ];
     // We add to the div the class "weapon2" and we delete the class "empty"
     this._weapon2.classList.replace("empty", "weapon2");
+    this._weapon2 = weapon2;
     // console.log(this._weapon2);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2
@@ -105,6 +108,7 @@ class Board {
       ];
     // We add to the div the class "weapon3" and we delete the class "empty"
     this._weapon3.classList.replace("empty", "weapon3");
+    this._weapon3 = weapon3;
     // console.log(this._weapon3);
 
     // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2 nor weapon3
@@ -116,6 +120,7 @@ class Board {
       ];
     // We add to the div the class "weapon4" and we delete the class "empty"
     this._weapon4.classList.replace("empty", "weapon4");
+    this._weapon4 = weapon4;
     // console.log(this._weapon4);
   }
 
