@@ -1,21 +1,28 @@
-class Move {
+import {
+  Board
+} from './board'
+
+class Game {
 
   constructor() {
-    this._gameBoard = new Board(10, 10, 14);
     this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+    this._currentEnemyDiv = document.getElementsByClassName("player2")[0];
     this._currentPlayer = player1;
-    this._currentEnemy;
+
   }
 
   turnBased() {
     console.log("je passe dans turnBased");
+    console.log(this._currentPlayer);
 
     if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
       this._currentPlayerDiv = document.getElementsByClassName("player2")[0];
       this._currentPlayer = player2;
+      this._currentEnemyDiv = document.getElementsByClassName("player1")[0];
     } else {
       this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
       this._currentPlayer = player1;
+      this._currentEnemyDiv = document.getElementsByClassName("player2")[0];
     }
   }
 
@@ -102,15 +109,10 @@ class Move {
 
     board.addEventListener("click", function (el) {
 
-      // check here if clicked box contains a weapon
-      // if (el.path[0].classList.contains("weapon")) {
-      //   this.swapWeapon();
-      // }
-
       if (!el.path[0].classList.contains("trajectory")) return;
 
       // Remove class player1or2 and add "empty" to the old box
-      const currentPlayerName = that._currentPlayer.name;
+      const currentPlayerName = that._currentPlayer._name;
       that._currentPlayerDiv.classList.remove(currentPlayerName);
       that._currentPlayerDiv.classList.add("empty");
 
@@ -124,11 +126,46 @@ class Move {
       that.resetTrajectory();
       that.turnBased();
       that.trajectory();
+      console.log(el.path[0].classList);
+
+      if (el.path[0].classList.contains("weapon0") ||
+        el.path[0].classList.contains("weapon1") ||
+        el.path[0].classList.contains("weapon2") ||
+        el.path[0].classList.contains("weapon3") ||
+        el.path[0].classList.contains("weapon4")) {
+        that.switchWeapon();
+        // récupérer la class de el.path[0] avec un get attribut et verifier dans le if si cette classe contient "weapon"
+        // refacto regex
+      }
     });
+  }
+
+  switchWeapon() {
+
+    console.log("here is a new weapon!");
+    console.log(this);
+
+    this._currentEnemyDiv.classList.remove("weapon0");
+    this._currentEnemyDiv.classList.remove("weapon1");
+    this._currentEnemyDiv.classList.remove("weapon2");
+    this._currentEnemyDiv.classList.remove("weapon3");
+    this._currentEnemyDiv.classList.remove("weapon4");
+    this._currentEnemyDiv.classList.add("weapon0");
+    // use getter setter
   }
 }
 
-const newMove = new Move();
+// Instantiation
 
-newMove.trajectory();
-newMove.movePlayerOnClick()
+const newBoard = new Board(10, 10, 14);
+
+newBoard.generateBoard();
+newBoard.generateIdForEachBox();
+newBoard.genaratePlayers();
+newBoard.generateWeapons();
+newBoard.generateUnreachableBoxes();
+
+const newGame = new Game();
+
+newGame.trajectory();
+newGame.movePlayerOnClick()

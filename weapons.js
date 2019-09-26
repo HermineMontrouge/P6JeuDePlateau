@@ -1,14 +1,11 @@
 class Weapon {
     constructor(name, damage, className) {
-        this.name = name;
-        this.damage = damage;
-        this.className = className;
+        this._name = name;
+        this._damage = damage;
+        this._className = className;
     }
 }
 
-// Instantiation
-
-const newWeapon = new Weapon();
 
 const weapon0 = new Weapon("blaster", 10, "weapon0");
 const weapon1 = new Weapon("light Saber Cold Fusion", 15, "weapon1");

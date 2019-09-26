@@ -1,9 +1,13 @@
-class Board {
+
+
+export class Board {
   constructor(row, box, unreachableBox) {
     this._row = row;
     this._box = box;
     this._unreachableBox = unreachableBox;
-    this._player1;
+    // this._player1 = new Player("player1", 100, weapon0);
+    // this._player2 = new Player("player2", 100, weapon0);
+    this._player1; // HTML
     this._player2;
     this._weapon0;
     this._weapon1;
@@ -139,12 +143,12 @@ class Board {
   }
 }
 
-// Instantiation
+// // Instantiation
 
-const newBoard = new Board(10, 10, 14);
+// const newBoard = new Board(10, 10, 14);
 
-newBoard.generateBoard();
-newBoard.generateIdForEachBox();
-newBoard.genaratePlayers();
-newBoard.generateWeapons();
-newBoard.generateUnreachableBoxes();
+// newBoard.generateBoard();
+// newBoard.generateIdForEachBox();
+// newBoard.genaratePlayers();
+// newBoard.generateWeapons();
+// newBoard.generateUnreachableBoxes();

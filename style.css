@@ -22,24 +22,6 @@
     background-image: url('./media/asteroid50px.png');
 }
 
-[class*="player"]::after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-    background-size: 90%;
-    background-position: center center;
-    height: 100%;
-    background-repeat: no-repeat;
-}
-
-.player1::after {
-    background-image: url('./media/players/deepSpaceNine.png');
-}
-
-.player2::after {
-    background-image: url('./media/players/milleniumFalcon.png');
-}
-
 [class*="weapon"]::after {
     content: "";
     display: inline-block;
@@ -68,6 +50,24 @@
 
 .weapon4::after {
     background-image: url('./media/weapons/noisyCricket.png');
+}
+
+[class*="player"]::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    background-size: 90%;
+    background-position: center center;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+.player1::after {
+    background-image: url('./media/players/deepSpaceNine.png');
+}
+
+.player2::after {
+    background-image: url('./media/players/milleniumFalcon.png');
 }
 
 .trajectory {
