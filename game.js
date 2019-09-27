@@ -1,14 +1,8 @@
-import {
-  Board
-} from './board'
-
 class Game {
-
   constructor() {
     this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
     this._currentEnemyDiv = document.getElementsByClassName("player2")[0];
     this._currentPlayer = player1;
-
   }
 
   turnBased() {
@@ -104,38 +98,39 @@ class Game {
   movePlayerOnClick() {
 
     console.log("je passe dans movePlayerOnClick");
+
     const that = this;
     const board = document.getElementById("board");
 
     board.addEventListener("click", function (el) {
 
-      if (!el.path[0].classList.contains("trajectory")) return;
+      let clickedEl = el.path[0]
+
+      // Stop the method if clicked box is not on trajectory
+      if (!clickedEl.classList.contains("trajectory")) return;
 
       // Remove class player1or2 and add "empty" to the old box
       const currentPlayerName = that._currentPlayer._name;
       that._currentPlayerDiv.classList.remove(currentPlayerName);
       that._currentPlayerDiv.classList.add("empty");
 
-      // Add class player and remove empty class to the new box
-      el.path[0].classList.remove("empty");
-      el.path[0].classList.add(currentPlayerName);
-      that._currentPlayerDiv = el.path[0];
-      el.path[0] = this._currentEnemy;
+      // Add class player1or2 and remove empty class to the new box
+      clickedEl.classList.remove("empty");
+      clickedEl.classList.add(currentPlayerName);
+      that._currenftPlayerDiv = clickedEl;
+      console.log(that._currentPlayerDiv);
+      this._currentEnemy = clickedEl;
+      console.log(this._currentEnemy);
 
       // call methods 
       that.resetTrajectory();
       that.turnBased();
       that.trajectory();
-      console.log(el.path[0].classList);
 
-      if (el.path[0].classList.contains("weapon0") ||
-        el.path[0].classList.contains("weapon1") ||
-        el.path[0].classList.contains("weapon2") ||
-        el.path[0].classList.contains("weapon3") ||
-        el.path[0].classList.contains("weapon4")) {
+      let clickedBoxClassName = clickedEl.classList.value;
+      const regex = /weapon/;
+      if (regex.test(clickedBoxClassName) === true) {
         that.switchWeapon();
-        // récupérer la class de el.path[0] avec un get attribut et verifier dans le if si cette classe contient "weapon"
-        // refacto regex
       }
     });
   }
@@ -143,7 +138,6 @@ class Game {
   switchWeapon() {
 
     console.log("here is a new weapon!");
-    console.log(this);
 
     this._currentEnemyDiv.classList.remove("weapon0");
     this._currentEnemyDiv.classList.remove("weapon1");
@@ -155,15 +149,6 @@ class Game {
   }
 }
 
-// Instantiation
-
-const newBoard = new Board(10, 10, 14);
-
-newBoard.generateBoard();
-newBoard.generateIdForEachBox();
-newBoard.genaratePlayers();
-newBoard.generateWeapons();
-newBoard.generateUnreachableBoxes();
 
 const newGame = new Game();
 

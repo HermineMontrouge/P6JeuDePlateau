@@ -1,6 +1,5 @@
-
-
-export class Board {
+// export 
+class Board {
   constructor(row, box, unreachableBox) {
     this._row = row;
     this._box = box;
@@ -143,12 +142,12 @@ export class Board {
   }
 }
 
-// // Instantiation
+// Instantiation
 
-// const newBoard = new Board(10, 10, 14);
+const newBoard = new Board(10, 10, 14);
 
-// newBoard.generateBoard();
-// newBoard.generateIdForEachBox();
-// newBoard.genaratePlayers();
-// newBoard.generateWeapons();
-// newBoard.generateUnreachableBoxes();
+newBoard.generateBoard();
+newBoard.generateIdForEachBox();
+newBoard.genaratePlayers();
+newBoard.generateWeapons();
+newBoard.generateUnreachableBoxes();
