@@ -4,8 +4,8 @@ class Board {
     this._row = row;
     this._box = box;
     this._unreachableBox = unreachableBox;
-    // this._player1 = new Player("player1", 100, weapon0);
-    // this._player2 = new Player("player2", 100, weapon0);
+    // this._player1 = new Player("player1", 100, weapon0, div);
+    // this._player2 = new Player("player2", 100, weapon0, div);
     this._player1; // HTML
     this._player2;
     this._weapon0;
@@ -48,7 +48,8 @@ class Board {
     // We add to the div the class "player1" and we delete the class "empty"
     this._player1.classList.remove("empty");
     this._player1.classList.add("player1");
-    // console.log(this._player1);
+    player1._div = this._player1;
+    console.log(player1)
 
     // We wish that player 2 does not appear side by side of player1
     // For each box whose index of the array is -1 +1 -10 +10 of the index of player1 remove the class empty
@@ -75,7 +76,8 @@ class Board {
     // We add to the div the class "player2" and we delete the class "empty"
     this._player2.classList.remove("empty");
     this._player2.classList.add("player2");
-    // console.log(this._player2);
+    player2._div = this._player2;
+    console.log(player2)
   }
 
   generateWeapons() {

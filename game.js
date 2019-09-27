@@ -1,35 +1,45 @@
 class Game {
+
   constructor() {
-    this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
-    this._currentEnemyDiv = document.getElementsByClassName("player2")[0];
     this._currentPlayer = player1;
+    this._currentEnemy = player2;
+    this._lastBox;
   }
 
-  turnBased() {
-    console.log("je passe dans turnBased");
-    console.log(this._currentPlayer);
+  turnBased(clickedEl) {
 
-    if (this._currentPlayerDiv === document.getElementsByClassName("player1")[0]) {
-      this._currentPlayerDiv = document.getElementsByClassName("player2")[0];
+    if (this._currentPlayer._name === player1._name) {
+
+      // Set box with new player
+      player1._div = clickedEl;
+      player1._div.classList.remove("empty");
+      player1._div.classList.add(this._currentPlayer._name);
+
+      // Switch Player
       this._currentPlayer = player2;
-      this._currentEnemyDiv = document.getElementsByClassName("player1")[0];
+      this._currentEnemy = player1;
+
     } else {
-      this._currentPlayerDiv = document.getElementsByClassName("player1")[0];
+
+      // Set box with new player
+      player2._div = clickedEl;
+      player2._div.classList.remove("empty");
+      player2._div.classList.add(this._currentPlayer._name);
+
+      // Switch Player
       this._currentPlayer = player1;
-      this._currentEnemyDiv = document.getElementsByClassName("player2")[0];
+      this._currentEnemy = player2;
     }
   }
 
   trajectory() {
 
-    console.log("je passe dans trajectory");
-
-    const playerId = this._currentPlayerDiv.id;
+    const playerId = this._currentPlayer._div.id;
 
     // class of the position y of player 1
-    const playerPosY = this._currentPlayerDiv.classList.item(2);
+    const playerPosY = this._currentPlayer._div.classList.item(2);
 
-    this._currentPlayerDiv.classList.add("trajectory");
+    this._currentPlayer._div.classList.add("trajectory");
 
     // Loop on 3 trajectories (3 boxes in a row)
     for (let i = 1; i <= 3; i++) {
@@ -85,10 +95,7 @@ class Game {
   }
 
   resetTrajectory() {
-
-    console.log("je passe dans resetTrajectory");
     const trajectoryBoxes = document.getElementsByClassName("trajectory");
-
     Array.from(trajectoryBoxes).map(box => {
       box.classList.remove("trajectory");
       box.classList.remove("adjacentBox");
@@ -97,8 +104,6 @@ class Game {
 
   movePlayerOnClick() {
 
-    console.log("je passe dans movePlayerOnClick");
-
     const that = this;
     const board = document.getElementById("board");
 
@@ -106,45 +111,40 @@ class Game {
 
       let clickedEl = el.path[0]
 
-      // Stop the method if clicked box is not on trajectory
+      // Stop the method if clicked box is not a trajectory
       if (!clickedEl.classList.contains("trajectory")) return;
 
       // Remove class player1or2 and add "empty" to the old box
       const currentPlayerName = that._currentPlayer._name;
-      that._currentPlayerDiv.classList.remove(currentPlayerName);
-      that._currentPlayerDiv.classList.add("empty");
+      that._currentPlayer._div.classList.remove(currentPlayerName);
+      that._currentPlayer._div.classList.add("empty");
 
-      // Add class player1or2 and remove empty class to the new box
-      clickedEl.classList.remove("empty");
-      clickedEl.classList.add(currentPlayerName);
-      that._currenftPlayerDiv = clickedEl;
-      console.log(that._currentPlayerDiv);
-      this._currentEnemy = clickedEl;
-      console.log(this._currentEnemy);
-
-      // call methods 
+      that.turnBased(clickedEl)
       that.resetTrajectory();
-      that.turnBased();
       that.trajectory();
 
+      // Call switchWeapon() if clikedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
       const regex = /weapon/;
       if (regex.test(clickedBoxClassName) === true) {
-        that.switchWeapon();
+        that.switchWeapon(clickedEl);
       }
     });
   }
 
-  switchWeapon() {
+  switchWeapon(clickedEl) {
 
     console.log("here is a new weapon!");
 
-    this._currentEnemyDiv.classList.remove("weapon0");
-    this._currentEnemyDiv.classList.remove("weapon1");
-    this._currentEnemyDiv.classList.remove("weapon2");
-    this._currentEnemyDiv.classList.remove("weapon3");
-    this._currentEnemyDiv.classList.remove("weapon4");
-    this._currentEnemyDiv.classList.add("weapon0");
+    const weaponNames = ["weapon0", "weapon1", "weapon2", "weapon3", "weapon4"]
+    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value))
+
+    // this._currentEnemy._div.classList.remove("weapon0");
+    // this._currentEnemy._div.classList.remove("weapon1");
+    // this._currentEnemy._div.classList.remove("weapon2");
+    // this._currentEnemy._div.classList.remove("weapon3");
+    // this._currentEnemy._div.classList.remove("weapon4");
+    // this._currentEnemy._div.classList.add("weapon0");
     // use getter setter
   }
 }
