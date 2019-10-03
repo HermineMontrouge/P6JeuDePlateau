@@ -49,7 +49,6 @@ class Board {
     this._player1.classList.remove("empty");
     this._player1.classList.add("player1");
     player1._div = this._player1;
-    console.log(player1)
 
     // We wish that player 2 does not appear side by side of player1
     // For each box whose index of the array is -1 +1 -10 +10 of the index of player1 remove the class empty
@@ -77,7 +76,18 @@ class Board {
     this._player2.classList.remove("empty");
     this._player2.classList.add("player2");
     player2._div = this._player2;
-    console.log(player2)
+
+    for (const box of boxes) {
+      if (
+        parseInt(box.id) - 1 == this._player2.id ||
+        parseInt(box.id) + 1 == this._player2.id ||
+        parseInt(box.id) - this._x == this._player2.id ||
+        parseInt(box.id) + this._x == this._player2.id
+      ) {
+        box.classList.remove("empty");
+        box.classList.add("adjacentBox");
+      }
+    }
   }
 
   generateWeapons() {

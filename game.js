@@ -35,8 +35,6 @@ class Game {
   trajectory() {
 
     const playerId = this._currentPlayer._div.id;
-
-    // class of the position y of player 1
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
     this._currentPlayer._div.classList.add("trajectory");
@@ -136,16 +134,14 @@ class Game {
 
     console.log("here is a new weapon!");
 
+    console.log(this._currentEnemy);
     const weaponNames = ["weapon0", "weapon1", "weapon2", "weapon3", "weapon4"]
-    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value))
-
-    // this._currentEnemy._div.classList.remove("weapon0");
-    // this._currentEnemy._div.classList.remove("weapon1");
-    // this._currentEnemy._div.classList.remove("weapon2");
-    // this._currentEnemy._div.classList.remove("weapon3");
-    // this._currentEnemy._div.classList.remove("weapon4");
-    // this._currentEnemy._div.classList.add("weapon0");
-    // use getter setter
+    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value));
+    clickedEl.classList.add(this._currentEnemy._weapon._className);
+    clickedEl.classList.add(this._currentEnemy._weapon[0]);
+    clickedEl.classList.remove(currentweapon);
+    this._currentEnemy._weapon = currentweapon;
+    console.log(this._currentEnemy);
   }
 }
 
