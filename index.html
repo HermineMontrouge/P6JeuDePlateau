@@ -18,8 +18,9 @@
             Move with the mouse to get a more powerful weapon,</br> </br> then win the fight against your opponent!</h2>
         <button id="start" class="btn btn-warning"><span class="blink">Start</span></button>
     </div> -->
-    <!-- board -->
 
+
+    <!-- Display player1 -->
     <div class="container">
         <div class="P1boardP2">
             <div class="P1">
@@ -27,9 +28,11 @@
                     <img class="DeepSpaceNine" src="./media/players/DeepSpaceNine.jpg"
                         alt="Presentation of player1"></img>
                 </div>
+                <!-- Display health point of player1 -->
                 <div class="healthPoints">
                     <span class="hpPlayer1"></span>
                 </div>
+                <!-- Display weapon of player1 -->
                 <div class="weapon">
                     <img class="weaponTitle" src="./media/weapons/weaponP1.png" alt="Weapon title"></img>
                 </div>
@@ -37,17 +40,25 @@
                     <span class="imgWeaponPlayer1"></span>
                 </div>
             </div>
+
+
+            <!-- Display board -->
             <div class="board">
                 <span id="board"></span>
             </div>
+
+
+            <!-- Display player2 -->
             <div class="P2">
                 <div class="player">
                     <img class="MilleniumFalcon" src="./media/players/MilleniumFalcon.jpg"
                         alt="Presentation of player2"></img>
                 </div>
+                <!-- Display health point of player2 -->
                 <div class="healthPoints">
                     <span id="hpPlayer2"></span>
                 </div>
+                <!-- Display weapon of player2 -->
                 <div class="weapon">
                     <img class="weaponTitle" src="./media/weapons/weaponP2.png" alt="Weapon title"></img>
                 </div>
@@ -56,16 +67,19 @@
                 </div>
             </div>
         </div>
-        <img class="presWeapons" src="./media/weapons/fiveWeapons.jpg"
-            alt="Presentation of the five weapons and damages"></img>
-    </div>
+        <!-- Display each sorte of weapons and its damages -->
+        <div>
+            <img class="presWeapons" src="./media/weapons/fiveWeapons.jpg"
+                alt="Presentation of the five weapons and damages"></img>
+        </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="weapons.js"></script>
-    <script src="players.js"></script>
-    <script src="board.js"></script>
-    <script src="game.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="weapons.js"></script>
+        <script src="players.js"></script>
+        <script src="board.js"></script>
+        <script src="game.js"></script>
+        <script src="battle.js"></script>
 </body>
 
 </html>

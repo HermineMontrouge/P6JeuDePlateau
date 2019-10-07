@@ -3,7 +3,7 @@ class Player {
     this._name = name;
     this._hp = hp;
     this._weapon = weapon;
-    this._div = div
+    this._div = div;
   }
 }
 

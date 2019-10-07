@@ -1,30 +1,20 @@
-// export 
 class Board {
   constructor(row, box, unreachableBox) {
     this._row = row;
     this._box = box;
     this._unreachableBox = unreachableBox;
-    // this._player1 = new Player("player1", 100, weapon0, div);
-    // this._player2 = new Player("player2", 100, weapon0, div);
-    this._player1; // HTML
-    this._player2;
-    this._weapon0;
-    this._weapon1;
-    this._weapon2;
-    this._weapon3;
-    this._weapon4;
     this._x = 0;
     this._y = 0;
   }
 
   generateBoard() {
     // Generate 10 lines
-    for (this._y = 0; this._y < 10; this._y++) {
+    for (this._y = 0; this._y < this._row; this._y++) {
       const newRow = document.createElement("div");
       newRow.className = "row";
       board.appendChild(newRow);
       // Generate 1O boxes in each lines
-      for (this._x = 0; this._x < 10; this._x++) {
+      for (this._x = 0; this._x < this._box; this._x++) {
         const newBox = document.createElement("div");
         newBox.className = `box x-${this._x} y-${this._y} empty`;
         newRow.appendChild(newBox);
@@ -40,116 +30,55 @@ class Board {
     }
   }
 
-  genaratePlayers() {
-    // Recovery of the table containing the 100 boxes
-    const boxes = document.querySelectorAll(".box");
+  generatePlayersAndWeapons() {
+    // Trouver un moyen d'attribuer les objets player1 etc en plus des className
 
-    this._player1 = boxes[Math.floor(Math.random() * boxes.length)];
-    // We add to the div the class "player1" and we delete the class "empty"
-    this._player1.classList.remove("empty");
-    this._player1.classList.add("player1");
-    player1._div = this._player1;
-
-    // We wish that player 2 does not appear side by side of player1
-    // For each box whose index of the array is -1 +1 -10 +10 of the index of player1 remove the class empty
-
-    for (const box of boxes) {
-      if (
-        parseInt(box.id) - 1 == this._player1.id ||
-        parseInt(box.id) + 1 == this._player1.id ||
-        parseInt(box.id) - this._x == this._player1.id ||
-        parseInt(box.id) + this._x == this._player1.id
-      ) {
-        box.classList.remove("empty");
-        box.classList.add("adjacentBox");
-      }
-    }
-
-    // Recovery of the table containing the boxes that are not player1 nor adjacent player1
-    const withoutPlayer1Boxes = document.querySelectorAll(".empty");
-
-    this._player2 =
-      withoutPlayer1Boxes[
-        Math.floor(Math.random() * withoutPlayer1Boxes.length)
-      ];
-    // We add to the div the class "player2" and we delete the class "empty"
-    this._player2.classList.remove("empty");
-    this._player2.classList.add("player2");
-    player2._div = this._player2;
-
-    for (const box of boxes) {
-      if (
-        parseInt(box.id) - 1 == this._player2.id ||
-        parseInt(box.id) + 1 == this._player2.id ||
-        parseInt(box.id) - this._x == this._player2.id ||
-        parseInt(box.id) + this._x == this._player2.id
-      ) {
-        box.classList.remove("empty");
-        box.classList.add("adjacentBox");
-      }
-    }
+    const names = ["player1", "player2", "weapon1", "weapon2", "weapon3", "weapon4"];
+    names.forEach(name => {
+      this.emptyCells(name);
+    });
   }
 
-  generateWeapons() {
-    // Recovery of the table containing the boxes that are not players
+  emptyCells(name) {
+    
     const emptyBoxes = document.querySelectorAll(".empty");
+    let el = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
+    el.classList.add(name);
+    el.classList.remove("empty");
 
-    this._weapon0 = weapon0;
+    if (el.getAttribute("class").includes("player")) {
+      this.adjacentBoxes(el)
+    }
 
-    this._weapon1 = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
-    // We add to the div the class "weapon1" and we delete the class "empty"
-    this._weapon1.classList.replace("empty", "weapon1");
-    this._weapon1 = weapon1;
-    // console.log(this._weapon1);
+    // eval permet de transformer une string en objet
+    eval(name)._div = el
+    console.log(eval(name));
+  }
 
-    // Recovery of the array containing the boxes that are not asteroids nor weapon1
-    const withoutWeapon1Boxes = document.querySelectorAll(".empty");
+  adjacentBoxes(el) {
 
-    this._weapon2 =
-      withoutWeapon1Boxes[
-        Math.floor(Math.random() * withoutWeapon1Boxes.length)
-      ];
-    // We add to the div the class "weapon2" and we delete the class "empty"
-    this._weapon2.classList.replace("empty", "weapon2");
-    this._weapon2 = weapon2;
-    // console.log(this._weapon2);
-
-    // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2
-    const withoutWeapon2Boxes = document.querySelectorAll(".empty");
-
-    this._weapon3 =
-      withoutWeapon2Boxes[
-        Math.floor(Math.random() * withoutWeapon2Boxes.length)
-      ];
-    // We add to the div the class "weapon3" and we delete the class "empty"
-    this._weapon3.classList.replace("empty", "weapon3");
-    this._weapon3 = weapon3;
-    // console.log(this._weapon3);
-
-    // Recovery of the array containing the boxes that are not asteroids neither weapon1 nor weapon2 nor weapon3
-    const withoutWeapon3Boxes = document.querySelectorAll(".empty");
-
-    this._weapon4 =
-      withoutWeapon3Boxes[
-        Math.floor(Math.random() * withoutWeapon3Boxes.length)
-      ];
-    // We add to the div the class "weapon4" and we delete the class "empty"
-    this._weapon4.classList.replace("empty", "weapon4");
-    this._weapon4 = weapon4;
-    // console.log(this._weapon4);
+    const boxes = document.querySelectorAll(".box");
+    for (const box of boxes) {
+      if (
+        parseInt(box.id) - 1 == el.id ||
+        parseInt(box.id) + 1 == el.id ||
+        parseInt(box.id) - this._x == el.id ||
+        parseInt(box.id) + this._x == el.id
+      ) {
+        box.classList.remove("empty");
+        box.classList.add("adjacentBox");
+      }
+    }
   }
 
   generateUnreachableBoxes() {
 
-    // Recovery of the table containing the boxes that are not players or weapons
     const lastEmptyBoxes = document.querySelectorAll(".empty");
-
     // Random generation of 14 asteroids (sometimes less if they overlap)
-    for (let i = 0; i < 14; i++) {
-      this._unreachableBox = lastEmptyBoxes[Math.floor(Math.random() * lastEmptyBoxes.length)];
-      // We add the class "unreachable" and we delete the class "empty" of each <div asteroid>
-      this._unreachableBox.classList.remove("empty");
-      this._unreachableBox.classList.add("unreachable");
+    for (let i = 0; i < this._unreachableBox; i++) {
+      const asteroid = lastEmptyBoxes[Math.floor(Math.random() * lastEmptyBoxes.length)];
+      asteroid.classList.remove("empty");
+      asteroid.classList.add("unreachable");
     }
   }
 }
@@ -160,6 +89,5 @@ const newBoard = new Board(10, 10, 14);
 
 newBoard.generateBoard();
 newBoard.generateIdForEachBox();
-newBoard.genaratePlayers();
-newBoard.generateWeapons();
+newBoard.generatePlayersAndWeapons();
 newBoard.generateUnreachableBoxes();

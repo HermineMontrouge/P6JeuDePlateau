@@ -123,9 +123,16 @@ class Game {
 
       // Call switchWeapon() if clikedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
-      const regex = /weapon/;
-      if (regex.test(clickedBoxClassName) === true) {
+      let regexWeapon = /weapon/;
+      if (regexWeapon.test(clickedBoxClassName) === true) {
         that.switchWeapon(clickedEl);
+      }
+
+      // call startFight() if clickedEl contains adjacentBox
+      let regexFight = /adjacentBox/;
+      if (regexFight.test(clickedBoxClassName) === true) {
+        that.startFight(clickedEl);
+        console.log("War is begining!");
       }
     });
   }
@@ -134,14 +141,18 @@ class Game {
 
     console.log("here is a new weapon!");
 
-    console.log(this._currentEnemy);
-    const weaponNames = ["weapon0", "weapon1", "weapon2", "weapon3", "weapon4"]
-    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value));
+    const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
+    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
+    console.log(this._currentEnemy._weapon._className);
     clickedEl.classList.add(this._currentEnemy._weapon._className);
-    clickedEl.classList.add(this._currentEnemy._weapon[0]);
-    clickedEl.classList.remove(currentweapon);
+    clickedEl.classList.remove(currentweapon._className);
     this._currentEnemy._weapon = currentweapon;
     console.log(this._currentEnemy);
+  }
+
+  startFight(clickedEl) {
+console.log("War is begining!");
+
   }
 }
 
