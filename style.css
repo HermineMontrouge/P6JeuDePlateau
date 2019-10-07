@@ -135,6 +135,29 @@
     }
 }
 
+.P1,
+.P2,
+.healthPoints,
+.imgWeapon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#hpPlayer1, 
+#hpPlayer2,
+#imgWeaponPlayer1,
+#imgWeaponPlayer2 {
+    color: white;
+    font-family: "Press Start 2P";
+    text-align: center;
+}
+
+.weaponTitle {
+    margin-top: 30px;
+}
+
+
 
 
 /* 

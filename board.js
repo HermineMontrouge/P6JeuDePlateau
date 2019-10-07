@@ -31,8 +31,6 @@ class Board {
   }
 
   generatePlayersAndWeapons() {
-    // Trouver un moyen d'attribuer les objets player1 etc en plus des className
-
     const names = ["player1", "player2", "weapon1", "weapon2", "weapon3", "weapon4"];
     names.forEach(name => {
       this.emptyCells(name);
@@ -40,7 +38,6 @@ class Board {
   }
 
   emptyCells(name) {
-    
     const emptyBoxes = document.querySelectorAll(".empty");
     let el = emptyBoxes[Math.floor(Math.random() * emptyBoxes.length)];
     el.classList.add(name);
@@ -50,29 +47,26 @@ class Board {
       this.adjacentBoxes(el)
     }
 
-    // eval permet de transformer une string en objet
+    // eval makes it possible to transform a string into an object
     eval(name)._div = el
-    console.log(eval(name));
+    // console.log(eval(name));
   }
 
   adjacentBoxes(el) {
-
-    const boxes = document.querySelectorAll(".box");
-    for (const box of boxes) {
-      if (
-        parseInt(box.id) - 1 == el.id ||
-        parseInt(box.id) + 1 == el.id ||
-        parseInt(box.id) - this._x == el.id ||
-        parseInt(box.id) + this._x == el.id
-      ) {
-        box.classList.remove("empty");
-        box.classList.add("adjacentBox");
-      }
+    // player1 and player2 should not appear side by side or be blocked by asteroids at launch
+    let adjacentsId = [(parseInt(el.id) + 1), (parseInt(el.id) - 1), (parseInt(el.id) + this._x), (parseInt(el.id) - this._x)];
+    adjacentsId = adjacentsId.filter(v => {
+      if (v > 0 && v < 99) return v;
+    })
+    for (let adjacentId of adjacentsId) {
+      let box = document.getElementById(adjacentId);
+      console.log(box)
+      box.classList.remove("empty");
+      box.classList.add("adjacentBox");
     }
   }
 
   generateUnreachableBoxes() {
-
     const lastEmptyBoxes = document.querySelectorAll(".empty");
     // Random generation of 14 asteroids (sometimes less if they overlap)
     for (let i = 0; i < this._unreachableBox; i++) {

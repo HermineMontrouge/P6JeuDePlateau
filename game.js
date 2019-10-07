@@ -9,23 +9,18 @@ class Game {
   turnBased(clickedEl) {
 
     if (this._currentPlayer._name === player1._name) {
-
       // Set box with new player
       player1._div = clickedEl;
       player1._div.classList.remove("empty");
       player1._div.classList.add(this._currentPlayer._name);
-
       // Switch Player
       this._currentPlayer = player2;
       this._currentEnemy = player1;
-
     } else {
-
       // Set box with new player
       player2._div = clickedEl;
       player2._div.classList.remove("empty");
       player2._div.classList.add(this._currentPlayer._name);
-
       // Switch Player
       this._currentPlayer = player1;
       this._currentEnemy = player2;
@@ -96,7 +91,8 @@ class Game {
     const trajectoryBoxes = document.getElementsByClassName("trajectory");
     Array.from(trajectoryBoxes).map(box => {
       box.classList.remove("trajectory");
-      box.classList.remove("adjacentBox");
+      if (!box.getAttribute("class").includes("player"))
+        box.classList.remove("adjacentBox");
     })
   }
 
@@ -120,6 +116,7 @@ class Game {
       that.turnBased(clickedEl)
       that.resetTrajectory();
       that.trajectory();
+      newBoard.adjacentBoxes(clickedEl);
 
       // Call switchWeapon() if clikedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
@@ -127,35 +124,22 @@ class Game {
       if (regexWeapon.test(clickedBoxClassName) === true) {
         that.switchWeapon(clickedEl);
       }
-
-      // call startFight() if clickedEl contains adjacentBox
-      let regexFight = /adjacentBox/;
-      if (regexFight.test(clickedBoxClassName) === true) {
-        that.startFight(clickedEl);
-        console.log("War is begining!");
-      }
     });
   }
 
   switchWeapon(clickedEl) {
 
-    console.log("here is a new weapon!");
-
     const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
     const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
-    console.log(this._currentEnemy._weapon._className);
     clickedEl.classList.add(this._currentEnemy._weapon._className);
     clickedEl.classList.remove(currentweapon._className);
-    this._currentEnemy._weapon = currentweapon;
-    console.log(this._currentEnemy);
+    this._currentEnemy.weapon = currentweapon;
   }
 
   startFight(clickedEl) {
-console.log("War is begining!");
-
+    console.log("War is begining!");
   }
 }
-
 
 const newGame = new Game();
 
