@@ -12,12 +12,12 @@
 
 <body>
     <!-- Message before to start the game -->
-    <!-- <div id="beginingScreen">
+    <div id="beginingScreen">
         <h1 class="title">Deep Space Nine VS Millenium Falcon</h1>
         <h2 class="title">
             Move with the mouse to get a more powerful weapon,</br> </br> then win the fight against your opponent!</h2>
         <button id="start" class="btn btn-warning"><span class="blink">Start</span></button>
-    </div> -->
+    </div>
 
 
     <!-- Display player1 -->
@@ -69,16 +69,20 @@
         </div>
 
         <!-- Display message of fight begins -->
-        <div id="startFight">A deadly fight is about to begin ...</div>
+        <div id="startFight">War is begining ...</div>
 
                 <!-- Display message to choose between defend of attack -->
 		<div id="question">
-			<div id="label"><span id="playerName"></span>, <br/><br/> do you want to attack the opponent<br/><br/> or defend yourself?</div><br/>
+			<div id="label"><span id="playerName"></span>, <br/><br/> do you want to attack the opponent<br/><br/> or defend yourself ?</div><br/>
 			<div id="buttons">
 				<button id="attack" class="btn btn-warning">Attack</button>
 				<button id="defend" class="btn btn-warning">Defend</button>
 			</div>
         </div>
+        <div id="endGame">
+			<span class="gameover">GAME OVER</span> <br/><br/> <span id="looserName"></span> is dead <br/><br/> <span id="winnerName"></span> champion! <br/><br/>
+			<button id="startAgain" class="btn btn-warning">Start new game</button>
+		</div>
         
         <!-- Display each sorte of weapons and its damages -->
         <div>

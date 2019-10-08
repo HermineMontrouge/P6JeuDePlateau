@@ -2,9 +2,69 @@
     background-color: black;
 }
 
-/* CSS du plateau de jeu */
+/*///////////////////////////////////////
+            begining screen
+///////////////////////////////////////*/
 
-/* Attention ils s'agit des row du plateau de jeu*/
+#beginingScreen {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding-top: 50px;
+}
+
+.title {
+    color: white;
+    padding-top: 55px;
+    font-family: "Press Start 2P";
+}
+
+h2 {
+    font-size: 1em;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+#start {
+    text-transform: uppercase;
+    font-family: "Press Start 2P";
+    font-size: 4em;
+    color: greenyellow;
+    position: absolute;
+    bottom: 320px;
+    width: 50%;
+    margin-left: -25%;
+    padding: 20px;
+    border: none;
+}
+
+#start:hover {
+    border: none;
+    color: purple;
+}
+
+.blink {
+    animation: blinkcolor 1s infinite;
+}
+
+@keyframes blinkcolor {
+    0% {}
+
+    50% {
+        color: black;
+    }
+}
+
+/*///////////////////////////////////////
+                 board
+///////////////////////////////////////*/
+
+
 .row {
     display: flex;
     background-color: black;
@@ -76,7 +136,9 @@
     max-height: 100%;
 }
 
-/* CSS de la présentation des joueurs et des armes*/
+/*///////////////////////////////////////
+ display name hp and weapons of players
+///////////////////////////////////////*/
 
 .container {
     margin-top: 40px;
@@ -144,7 +206,7 @@
     justify-content: center;
 }
 
-#hpPlayer1, 
+#hpPlayer1,
 #hpPlayer2,
 #imgWeaponPlayer1,
 #imgWeaponPlayer2 {
@@ -158,106 +220,52 @@
 }
 
 
+/*///////////////////////////////////////
+            fighting display
+///////////////////////////////////////*/
 
 
-/* 
-#beginingScreen {
+#startFight,
+#endFight {
+    display: none;
     z-index: 1;
-    position: absolute;
-    top: 0;
+    position: fixed;
     left: 0;
+    bottom: 280px;
     width: 100%;
-    height: 100%;
+    height: 18%;
     background-color: rgba(0, 0, 0, 0.8);
     text-align: center;
-    padding-top: 50px;
-}
-
-.title {
     color: white;
-    padding-top: 55px;
     font-family: "Press Start 2P";
+    padding-top: 45px;
 }
 
-h2 {
-    font-size: 1em;
-    margin-right: 100px;
-    margin-left: 100px;
-}
-
-#start {
-    background-color: purple;
-    text-transform: uppercase;
-    font-family: "Press Start 2P";
-    color: greenyellow;
-    position: absolute;
-    bottom: 120px;
-    width: 50%;
-    margin-left: -25%;
+#question {
+    display: none;
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    bottom: 280px;
+    width: 100%;
+    height: 22%;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    color: white;
     padding: 20px;
-    border: none;
+    font-family: "Press Start 2P";
+    text-align: center;
 }
 
-#start:hover {
-    background-color: greenyellow;
-    border: none;
-    color: purple;
-}
-
-.blink {
-    animation: blinkcolor 1s infinite;
-}
-
-@keyframes blinkcolor {
-    0% {}
-
-    50% {
-        color: black;
-    }
-} */
-
-
-#startFight, #endFight
-{
-	display: none;
-	z-index: 1;
-	position: fixed;
-	left: 0;
-	bottom: 280px;
-	width: 100%;
-	height: 18%;
-	background-color: rgba(0, 0, 0, 0.8);
-	text-align: center;
-	color: white;
-	font-family: "Press Start 2P";
-	padding-top: 45px;
-}
-
-#question
-{
-	display: none;
-	z-index: 1;
-	position: fixed;
-	left: 0;
-	bottom: 280px;
-	width: 100%;
-	height: 22%;
-	background-color: rgba(0, 0, 0, 0.5);
-	margin: 0;
-	color: white;
-	padding: 20px;
-	font-family: "Press Start 2P";
-	text-align: center;
-}
-
-#label, #buttons
-{
+#label,
+#buttons {
     margin: auto;
     background-color: rgba(0, 0, 0, 0);
 }
 
-#attack, #defend
-{
+#attack,
+#defend,
+#startAgain {
     border: none;
     color: white;
     width: 200px;
@@ -267,8 +275,45 @@ h2 {
     background-color: rgba(0, 0, 0, 0);
 }
 
-#attack:hover, #defend:hover
-{
-	/* background-color: purple; */
-	border: solid 2px greenyellow;
+#attack:hover,
+#defend:hover {
+    /* background-color: purple; */
+    border: solid 2px greenyellow;
+}
+
+/*///////////////////////////////////////
+            game over display
+///////////////////////////////////////*/
+
+#endGame {
+    display: none;
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    bottom: 280px;
+    width: 100%;
+    height: 26%;
+    background-color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    color: white;
+    padding: 20px;
+    font-family: "Press Start 2P";
+    text-align: center;
+}
+
+.gameover {
+    font-size: 3em;
+}
+
+#startAgain {
+    animation: couleurClignotementCombat 1s infinite;
+    color: greenyellow;
+}
+
+@keyframes couleurClignotementCombat {
+    0% {}
+
+    50% {
+        color: rgba(0, 0, 0, 0.8);
+    }
 }

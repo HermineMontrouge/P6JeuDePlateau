@@ -4,23 +4,20 @@ class Game {
     this._currentPlayer = player1;
     this._currentEnemy = player2;
     this._lastBox;
-  }
 
-  // displayPlayer(clickedEl) {
-  //   console.log(currentPlayer._div);
-  //   currentPlayer._div = clickedEl;
-  //   currentPlayer._div.classList.remove("empty");
-  //   currentPlayer._div.classList.add(this._currentPlayer._name);
-  // }
+    $("#start").click(() => {
+      $('#beginingScreen').fadeOut("slow");
+    });
+  }
 
   turnBased(clickedEl) {
 
     console.log("turnedBased()");
-    if (this._currentPlayer._name === player1._name) {
+    if (this._currentPlayer._className === player1._className) {
       // Set box with new player
       player1._div = clickedEl;
       player1._div.classList.remove("empty");
-      player1._div.classList.add(this._currentPlayer._name);
+      player1._div.classList.add(this._currentPlayer._className);
       // Switch Player
       this._currentPlayer = player2;
       this._currentEnemy = player1;
@@ -28,7 +25,7 @@ class Game {
       // Set box with new player
       player2._div = clickedEl;
       player2._div.classList.remove("empty");
-      player2._div.classList.add(this._currentPlayer._name);
+      player2._div.classList.add(this._currentPlayer._className);
       // Switch Player
       this._currentPlayer = player1;
       this._currentEnemy = player2;
@@ -105,6 +102,7 @@ class Game {
   }
 
   movePlayerOnClick() {
+
     console.log("movePlayerOnClick()")
     const that = this;
     const board = document.getElementById("board");
@@ -115,9 +113,16 @@ class Game {
       if (!clickedEl.classList.contains("trajectory")) return;
 
       // Remove class player1or2 and add "empty" to the old box
-      const currentPlayerName = that._currentPlayer._name;
+      const currentPlayerName = that._currentPlayer._className;
       that._currentPlayer._div.classList.remove(currentPlayerName);
       that._currentPlayer._div.classList.add("empty");
+
+      // Call switchWeapon() if clikedEl contains a weapon
+      let clickedBoxClassName = clickedEl.classList.value;
+      let regexWeapon = /weapon/;
+      if (regexWeapon.test(clickedBoxClassName) === true) {
+        that.switchWeapon(clickedEl);
+      }
 
       const fightMode = newBoard.adjacentBoxes(clickedEl);
       if (fightMode) {
@@ -128,13 +133,6 @@ class Game {
       that.turnBased(clickedEl)
       that.resetTrajectory();
       that.trajectory();
-
-      // Call switchWeapon() if clikedEl contains a weapon
-      let clickedBoxClassName = clickedEl.classList.value;
-      let regexWeapon = /weapon/;
-      if (regexWeapon.test(clickedBoxClassName) === true) {
-        that.switchWeapon(clickedEl);
-      }
     });
   }
 
@@ -151,12 +149,11 @@ class Game {
     console.log("startFight()")
     this._currentPlayer._div = clickedEl;
     this._currentPlayer._div.classList.remove("empty");
-    this._currentPlayer._div.classList.add(this._currentPlayer._name);
+    this._currentPlayer._div.classList.add(this._currentPlayer._className);
     this.resetTrajectory();
 
     console.log(this._currentPlayer);
 
-    // let self = this;
     $("#startFight").fadeIn("slow");
 
     setTimeout(() => {
@@ -169,27 +166,60 @@ class Game {
 
     // Add the name of the player concerned in the question
     $("#playerName").empty();
-    if (this._currentPlayer._name === "player1") {
+    if (this._currentPlayer._className === "player1") {
       $("#playerName").append("Deep Space Nine");
     } else {
       $("#playerName").append("Millenium Falcon");
     }
     // bring up the question
-    $("#question").fadeIn(); 
+    $("#question").fadeIn();
     // if the player clicks on attack
-    $("#attack").click(function () { 
+    $("#attack").click(() => {
       $("#question").fadeOut();
       $('#attack').unbind("click");
       $('#defend').unbind("click");
-      this.attaquerAdversaire();
+      this.attackingOpponent();
+      this.endGame();
     });
     // if the player clicks on defend
-    $("#defendre").click(function () { 
+    $("#defend").click(() => {
       $("#question").fadeOut();
       $('#defend').unbind("click");
       $('#attack').unbind("click");
-      this.seDefendreContreAdversaire();
+      this.defendAgainstOpponent();
+      this.endGame();
     });
+  }
+
+
+  attackingOpponent() {
+    this._currentEnemy.hp = this._currentEnemy._hp - this._currentPlayer._weapon._damage;
+    console.log("damage of current player weapon", this._currentPlayer._weapon._damage, "current player:", this._currentPlayer, );
+    console.log("hp of current enemy", this._currentEnemy._hp);
+    console.log("hp of current player", this._currentPlayer._hp);
+  }
+
+  defendAgainstOpponent() {
+    this._currentEnemy._weapon._damage = ((this._currentEnemy._weapon._damage) / 2);
+    console.log("damage de l'arme de current ennemy", this._currentEnemy._weapon._damage);
+  }
+
+  endGame() {
+    if (this._currentEnemy._hp > 0 && this._currentPlayer._hp > 0) {
+      if (this._currentPlayer._className === player1._className) {
+        this._currentPlayer = player2;
+        this._currentEnemy = player1;
+      } else {
+        this._currentPlayer = player1;
+        this._currentEnemy = player2;
+      }
+      this.askCurrentPlayer()
+    } else if (this._currentEnemy._hp <= 0) {
+      $("#looserName").text(this._currentEnemy._name);
+      $("#winnerName").text(this._currentPlayer._name);
+      $("#endGame").fadeIn("slow");
+      console.log("winner is", this._currentPlayer._name);
+    }
   }
 }
 
