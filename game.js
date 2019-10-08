@@ -219,6 +219,9 @@ class Game {
       $("#winnerName").text(this._currentPlayer._name);
       $("#endGame").fadeIn("slow");
       console.log("winner is", this._currentPlayer._name);
+      $("#startAgain").click(() => {
+        document.location.reload(true);
+      });
     }
   }
 }
