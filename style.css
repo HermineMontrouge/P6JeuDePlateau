@@ -215,3 +215,60 @@ h2 {
         color: black;
     }
 } */
+
+
+#startFight, #endFight
+{
+	display: none;
+	z-index: 1;
+	position: fixed;
+	left: 0;
+	bottom: 280px;
+	width: 100%;
+	height: 18%;
+	background-color: rgba(0, 0, 0, 0.8);
+	text-align: center;
+	color: white;
+	font-family: "Press Start 2P";
+	padding-top: 45px;
+}
+
+#question
+{
+	display: none;
+	z-index: 1;
+	position: fixed;
+	left: 0;
+	bottom: 280px;
+	width: 100%;
+	height: 22%;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin: 0;
+	color: white;
+	padding: 20px;
+	font-family: "Press Start 2P";
+	text-align: center;
+}
+
+#label, #buttons
+{
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#attack, #defend
+{
+    border: none;
+    color: white;
+    width: 200px;
+    height: 100px;
+    font-size: 1.5em;
+    font-family: "Press Start 2P";
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#attack:hover, #defend:hover
+{
+	/* background-color: purple; */
+	border: solid 2px greenyellow;
+}

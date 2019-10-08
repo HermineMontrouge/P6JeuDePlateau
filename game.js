@@ -6,8 +6,16 @@ class Game {
     this._lastBox;
   }
 
+  // displayPlayer(clickedEl) {
+  //   console.log(currentPlayer._div);
+  //   currentPlayer._div = clickedEl;
+  //   currentPlayer._div.classList.remove("empty");
+  //   currentPlayer._div.classList.add(this._currentPlayer._name);
+  // }
+
   turnBased(clickedEl) {
 
+    console.log("turnedBased()");
     if (this._currentPlayer._name === player1._name) {
       // Set box with new player
       player1._div = clickedEl;
@@ -29,6 +37,7 @@ class Game {
 
   trajectory() {
 
+    console.log("trajectory()");
     const playerId = this._currentPlayer._div.id;
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
@@ -88,21 +97,18 @@ class Game {
   }
 
   resetTrajectory() {
+    console.log("resetTrajectory()")
     const trajectoryBoxes = document.getElementsByClassName("trajectory");
     Array.from(trajectoryBoxes).map(box => {
       box.classList.remove("trajectory");
-      if (!box.getAttribute("class").includes("player"))
-        box.classList.remove("adjacentBox");
     })
   }
 
   movePlayerOnClick() {
-
+    console.log("movePlayerOnClick()")
     const that = this;
     const board = document.getElementById("board");
-
     board.addEventListener("click", function (el) {
-
       let clickedEl = el.path[0]
 
       // Stop the method if clicked box is not a trajectory
@@ -113,10 +119,15 @@ class Game {
       that._currentPlayer._div.classList.remove(currentPlayerName);
       that._currentPlayer._div.classList.add("empty");
 
+      const fightMode = newBoard.adjacentBoxes(clickedEl);
+      if (fightMode) {
+        that.startFight(clickedEl);
+        return;
+      }
+
       that.turnBased(clickedEl)
       that.resetTrajectory();
       that.trajectory();
-      newBoard.adjacentBoxes(clickedEl);
 
       // Call switchWeapon() if clikedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
@@ -128,7 +139,7 @@ class Game {
   }
 
   switchWeapon(clickedEl) {
-
+    console.log("switchWeapon()")
     const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
     const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
     clickedEl.classList.add(this._currentEnemy._weapon._className);
@@ -137,7 +148,48 @@ class Game {
   }
 
   startFight(clickedEl) {
-    console.log("War is begining!");
+    console.log("startFight()")
+    this._currentPlayer._div = clickedEl;
+    this._currentPlayer._div.classList.remove("empty");
+    this._currentPlayer._div.classList.add(this._currentPlayer._name);
+    this.resetTrajectory();
+
+    console.log(this._currentPlayer);
+
+    // let self = this;
+    $("#startFight").fadeIn("slow");
+
+    setTimeout(() => {
+      $('#startFight').fadeOut("slow");
+      this.askCurrentPlayer();
+    }, 2000);
+  }
+
+  askCurrentPlayer() {
+
+    // Add the name of the player concerned in the question
+    $("#playerName").empty();
+    if (this._currentPlayer._name === "player1") {
+      $("#playerName").append("Deep Space Nine");
+    } else {
+      $("#playerName").append("Millenium Falcon");
+    }
+    // bring up the question
+    $("#question").fadeIn(); 
+    // if the player clicks on attack
+    $("#attack").click(function () { 
+      $("#question").fadeOut();
+      $('#attack').unbind("click");
+      $('#defend').unbind("click");
+      this.attaquerAdversaire();
+    });
+    // if the player clicks on defend
+    $("#defendre").click(function () { 
+      $("#question").fadeOut();
+      $('#defend').unbind("click");
+      $('#attack').unbind("click");
+      this.seDefendreContreAdversaire();
+    });
   }
 }
 

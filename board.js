@@ -52,18 +52,31 @@ class Board {
     // console.log(eval(name));
   }
 
-  adjacentBoxes(el) {
+  adjacentBoxes(clickedEl) {
+
+    console.log("adjacentBoxes()")
+    let isAdjacentPlayer = false
     // player1 and player2 should not appear side by side or be blocked by asteroids at launch
-    let adjacentsId = [(parseInt(el.id) + 1), (parseInt(el.id) - 1), (parseInt(el.id) + this._x), (parseInt(el.id) - this._x)];
+    let adjacentsId = [(parseInt(clickedEl.id) + 1), (parseInt(clickedEl.id) - 1), (parseInt(clickedEl.id) + this._x), (parseInt(clickedEl.id) - this._x)];
     adjacentsId = adjacentsId.filter(v => {
-      if (v > 0 && v < 99) return v;
-    })
+      if (v > 0 && v < 99) return v
+    });
+
     for (let adjacentId of adjacentsId) {
       let box = document.getElementById(adjacentId);
-      console.log(box)
       box.classList.remove("empty");
       box.classList.add("adjacentBox");
+
+
+      // Checked if player are side by side, to start fight
+      let regexPlayer = /player/;
+      let boxValue = box.classList.value;
+      if (regexPlayer.test(boxValue) === true) {
+        isAdjacentPlayer = true
+        console.log("regex adjacent box checked");
+      }
     }
+    return isAdjacentPlayer
   }
 
   generateUnreachableBoxes() {
