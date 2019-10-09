@@ -1,4 +1,5 @@
 class Player {
+
   constructor(name, className, hp, weapon, div) {
     this._name = name;
     this._className = className;
@@ -9,15 +10,13 @@ class Player {
 
   set hp(hp) {
 
-    const name = this._className.charAt(0).toUpperCase() + this._className.slice(1)
-    $('#hp' + name).html(hp);
+    $('#hp' + this._className).html(hp);
     this._hp = hp;
   }
 
   set weapon(weapon) {
 
-    const name = this._className.charAt(0).toUpperCase() + this._className.slice(1)
-    $('#imgWeapon' + name).html(weapon._img);
+    $('#imgWeapon' + this._className).html(weapon._img);
     this._weapon = weapon;
   }
 }

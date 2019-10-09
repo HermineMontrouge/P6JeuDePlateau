@@ -5,14 +5,13 @@ class Game {
     this._currentEnemy = player2;
     this._lastBox;
 
+    // Begining screen
     $("#start").click(() => {
       $('#beginingScreen').fadeOut("slow");
     });
   }
 
   turnBased(clickedEl) {
-
-    console.log("turnedBased()");
     if (this._currentPlayer._className === player1._className) {
       // Set box with new player
       player1._div = clickedEl;
@@ -33,8 +32,6 @@ class Game {
   }
 
   trajectory() {
-
-    console.log("trajectory()");
     const playerId = this._currentPlayer._div.id;
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
@@ -94,7 +91,6 @@ class Game {
   }
 
   resetTrajectory() {
-    console.log("resetTrajectory()")
     const trajectoryBoxes = document.getElementsByClassName("trajectory");
     Array.from(trajectoryBoxes).map(box => {
       box.classList.remove("trajectory");
@@ -102,8 +98,6 @@ class Game {
   }
 
   movePlayerOnClick() {
-
-    console.log("movePlayerOnClick()")
     const that = this;
     const board = document.getElementById("board");
     board.addEventListener("click", function (el) {
@@ -137,7 +131,6 @@ class Game {
   }
 
   switchWeapon(clickedEl) {
-    console.log("switchWeapon()")
     const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
     const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
     clickedEl.classList.add(this._currentPlayer._weapon._className);
@@ -146,13 +139,10 @@ class Game {
   }
 
   startFight(clickedEl) {
-    console.log("startFight()")
     this._currentPlayer._div = clickedEl;
     this._currentPlayer._div.classList.remove("empty");
     this._currentPlayer._div.classList.add(this._currentPlayer._className);
     this.resetTrajectory();
-
-    console.log(this._currentPlayer);
 
     $("#startFight").fadeIn("slow");
 
@@ -163,7 +153,6 @@ class Game {
   }
 
   askCurrentPlayer() {
-
     // Add the name of the player concerned in the question
     $("#playerName").empty();
     if (this._currentPlayer._className === "player1") {
@@ -191,17 +180,32 @@ class Game {
     });
   }
 
-
   attackingOpponent() {
     this._currentEnemy.hp = this._currentEnemy._hp - this._currentPlayer._weapon._damage;
-    console.log("damage of current player weapon", this._currentPlayer._weapon._damage, "current player:", this._currentPlayer, );
+    console.log("damage of current player weapon", this._currentPlayer._weapon._damage);
     console.log("hp of current enemy", this._currentEnemy._hp);
     console.log("hp of current player", this._currentPlayer._hp);
   }
 
   defendAgainstOpponent() {
-    this._currentEnemy._weapon._damage = ((this._currentEnemy._weapon._damage) / 2);
-    console.log("damage de l'arme de current ennemy", this._currentEnemy._weapon._damage);
+    switch (this._currentEnemy._weapon._name) {
+      case "blaster":
+        this._currentEnemy._weapon._damage = 5;
+        break;
+      case "light Saber Cold Fusion":
+        this._currentEnemy._weapon._damage = 8;
+        break;
+      case "neuralizer":
+        this._currentEnemy._weapon._damage = 10;
+        break;
+      case "tri Barrel Plasma Gun":
+        this._currentEnemy._weapon._damage = 12;
+        break;
+      case "noisy Cricket":
+        this._currentEnemy._weapon._damage = 15;
+        break;
+    }
+    console.log("damage of weapon of current enemy", this._currentEnemy._weapon._damage);
   }
 
   endGame() {
@@ -209,16 +213,21 @@ class Game {
       if (this._currentPlayer._className === player1._className) {
         this._currentPlayer = player2;
         this._currentEnemy = player1;
+        // Display damage
+        const displayDamageP1 = document.getElementById("damageWeaponplayer1");
+        displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
       } else {
         this._currentPlayer = player1;
         this._currentEnemy = player2;
+        // Display damage
+        const displayDamageP2 = document.getElementById("damageWeaponplayer2");
+        displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
       }
       this.askCurrentPlayer()
     } else if (this._currentEnemy._hp <= 0) {
       $("#looserName").text(this._currentEnemy._name);
       $("#winnerName").text(this._currentPlayer._name);
       $("#endGame").fadeIn("slow");
-      console.log("winner is", this._currentPlayer._name);
       $("#startAgain").click(() => {
         document.location.reload(true);
       });

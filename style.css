@@ -34,7 +34,7 @@ h2 {
     text-transform: uppercase;
     font-family: "Press Start 2P";
     font-size: 4em;
-    color: greenyellow;
+    color: #07F204;
     position: absolute;
     bottom: 320px;
     width: 50%;
@@ -45,7 +45,7 @@ h2 {
 
 #start:hover {
     border: none;
-    color: purple;
+    color: #7D04F3;
 }
 
 .blink {
@@ -150,9 +150,9 @@ h2 {
 
 .DeepSpaceNine,
 .MilleniumFalcon,
-.weaponTitle {
+.weaponTitle,
+.imageDamage {
     max-width: 60%;
-    max-height: 60%;
     display: block;
     width: auto;
     margin-left: auto;
@@ -164,7 +164,7 @@ h2 {
     width: auto;
     margin-left: auto;
     margin-right: auto;
-    max-width: 45%;
+    max-width: 35%;
 }
 
 @media all and (min-width: 150px) and (max-width: 1200px) {
@@ -200,23 +200,39 @@ h2 {
 .P1,
 .P2,
 .healthPoints,
-.imgWeapon {
+.imgWeapon,
+.damageWeapon,
+.imgDamage {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-#hpPlayer1,
-#hpPlayer2,
-#imgWeaponPlayer1,
-#imgWeaponPlayer2 {
+.damageWeapon{
+    margin-top: 30px;
+}
+
+#hpplayer1,
+#hpplayer2,
+#imgWeaponplayer1,
+#imgWeaponplayer2,
+#damageWeaponplayer1,
+#damageWeaponplayer2 {
     color: white;
     font-family: "Press Start 2P";
     text-align: center;
+    margin-bottom: 20px;
+}
+
+#imgWeaponplayer1,
+#imgWeaponplayer2,
+#damageWeaponplayer1,
+#damageWeaponplayer2{
+    margin-top: -15px;
 }
 
 .weaponTitle {
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 
@@ -230,7 +246,7 @@ h2 {
     display: none;
     z-index: 1;
     position: fixed;
-    left: 0;
+    left: -10px;
     bottom: 280px;
     width: 100%;
     height: 18%;
@@ -241,11 +257,15 @@ h2 {
     padding-top: 45px;
 }
 
+#startFight {
+    font-size: 2em;
+}
+
 #question {
     display: none;
     z-index: 1;
     position: fixed;
-    left: 0;
+    left: -30px;
     bottom: 280px;
     width: 100%;
     height: 22%;
@@ -289,7 +309,7 @@ h2 {
     display: none;
     z-index: 1;
     position: fixed;
-    left: 0;
+    left: -30px;
     bottom: 280px;
     width: 100%;
     height: 26%;
