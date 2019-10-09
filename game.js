@@ -9,6 +9,25 @@ class Game {
     $("#start").click(() => {
       $('#beginingScreen').fadeOut("slow");
     });
+
+    // Audio
+    $('.openingAudio').trigger('load');
+    function playOpening() {
+        $('.openingAudio').trigger('play');
+    }
+    function stopOpening() {
+        $('.openingAudio').trigger('pause');
+    }
+    $('#audioOn').click(function(){
+        playOpening();
+        $('#audioOn').hide();
+        $('#audioOff').show();
+    })
+    $('#audioOff').click(function(){
+        stopOpening();
+        $('#audioOff').hide();
+        $('#audioOn').show();
+    })
   }
 
   turnBased(clickedEl) {
@@ -183,8 +202,6 @@ class Game {
   attackingOpponent() {
     this._currentEnemy.hp = this._currentEnemy._hp - this._currentPlayer._weapon._damage;
     console.log("damage of current player weapon", this._currentPlayer._weapon._damage);
-    console.log("hp of current enemy", this._currentEnemy._hp);
-    console.log("hp of current player", this._currentPlayer._hp);
   }
 
   defendAgainstOpponent() {
