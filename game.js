@@ -140,9 +140,9 @@ class Game {
     console.log("switchWeapon()")
     const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
     const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
-    clickedEl.classList.add(this._currentEnemy._weapon._className);
+    clickedEl.classList.add(this._currentPlayer._weapon._className);
     clickedEl.classList.remove(currentweapon._className);
-    this._currentEnemy.weapon = currentweapon;
+    this._currentPlayer.weapon = currentweapon;
   }
 
   startFight(clickedEl) {
