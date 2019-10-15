@@ -54,7 +54,6 @@ class Board {
 
   adjacentBoxes(clickedEl) {
 
-    console.log("adjacentBoxes()")
     let isAdjacentPlayer = false
     // player1 and player2 should not appear side by side or be blocked by asteroids at launch
     let adjacentsId = [(parseInt(clickedEl.id) + 1), (parseInt(clickedEl.id) - 1), (parseInt(clickedEl.id) + this._x), (parseInt(clickedEl.id) - this._x)];
@@ -78,6 +77,13 @@ class Board {
     }
     return isAdjacentPlayer
   }
+
+  // deleteLastAdjacent() {
+  //   const lastAdjacentBoxes = querySelectorAll(".adjacent")
+  //   lastAdjacentBoxes.forEach( lastAdjacentBox => {
+  //     lastAdjacentBox.classList.remove("adjacent");
+  //   })
+  // }
 
   generateUnreachableBoxes() {
     const lastEmptyBoxes = document.querySelectorAll(".empty");

@@ -22,6 +22,7 @@
     color: white;
     padding-top: 55px;
     font-family: "Press Start 2P";
+    background-color: rgba(0, 0, 0, 0);
 }
 
 h2 {
@@ -332,6 +333,10 @@ h2 {
 #startAgain {
     animation: couleurClignotementCombat 1s infinite;
     color: #07F204;
+}
+
+#start {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 @keyframes couleurClignotementCombat {

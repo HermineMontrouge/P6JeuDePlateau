@@ -4,6 +4,9 @@ class Game {
     this._currentPlayer = player1;
     this._currentEnemy = player2;
     this._lastBox;
+  }
+
+  screenStart() {
 
     // Begining screen
     $("#start").click(() => {
@@ -12,41 +15,47 @@ class Game {
 
     // Audio
     $('.openingAudio').trigger('load');
+
     function playOpening() {
-        $('.openingAudio').trigger('play');
+      $('.openingAudio').trigger('play');
     }
+
     function stopOpening() {
-        $('.openingAudio').trigger('pause');
+      $('.openingAudio').trigger('pause');
     }
-    $('#audioOn').click(function(){
-        playOpening();
-        $('#audioOn').hide();
-        $('#audioOff').show();
+    $('#audioOn').click(function () {
+      playOpening();
+      $('#audioOn').hide();
+      $('#audioOff').show();
     })
-    $('#audioOff').click(function(){
-        stopOpening();
-        $('#audioOff').hide();
-        $('#audioOn').show();
+    $('#audioOff').click(function () {
+      stopOpening();
+      $('#audioOff').hide();
+      $('#audioOn').show();
     })
   }
 
-  turnBased(clickedEl) {
+  turnBased() {
+    // Change current player and current enemy onclick
     if (this._currentPlayer._className === player1._className) {
-      // Set box with new player
-      player1._div = clickedEl;
-      player1._div.classList.remove("empty");
-      player1._div.classList.add(this._currentPlayer._className);
-      // Switch Player
       this._currentPlayer = player2;
       this._currentEnemy = player1;
     } else {
-      // Set box with new player
+      this._currentPlayer = player1;
+      this._currentEnemy = player2;
+    }
+  }
+
+  movePlayer(clickedEl) {
+    // Set box with new player and delete player of last box
+    if (this._currentPlayer._className === player1._className) {
+      player1._div = clickedEl;
+      player1._div.classList.remove("empty");
+      player1._div.classList.add(this._currentPlayer._className);
+    } else if (this._currentPlayer._className === player2._className) {
       player2._div = clickedEl;
       player2._div.classList.remove("empty");
       player2._div.classList.add(this._currentPlayer._className);
-      // Switch Player
-      this._currentPlayer = player1;
-      this._currentEnemy = player2;
     }
   }
 
@@ -116,7 +125,7 @@ class Game {
     })
   }
 
-  movePlayerOnClick() {
+  setOnClick() {
     const that = this;
     const board = document.getElementById("board");
     board.addEventListener("click", function (el) {
@@ -137,13 +146,17 @@ class Game {
         that.switchWeapon(clickedEl);
       }
 
+      // newBoard.deleteLastAdjacent();
+
+      console.log(newBoard.adjacentBoxes(clickedEl));
       const fightMode = newBoard.adjacentBoxes(clickedEl);
       if (fightMode) {
         that.startFight(clickedEl);
         return;
       }
 
-      that.turnBased(clickedEl)
+      that.movePlayer(clickedEl);
+      that.turnBased();
       that.resetTrajectory();
       that.trajectory();
     });
@@ -155,6 +168,19 @@ class Game {
     clickedEl.classList.add(this._currentPlayer._weapon._className);
     clickedEl.classList.remove(currentweapon._className);
     this._currentPlayer.weapon = currentweapon;
+    this.displayDamage();
+  }
+
+  displayDamage() {
+    if (this._currentPlayer._className === "player1") {
+      // Display damage
+      const displayDamageP1 = document.getElementById("damageWeaponplayer1");
+      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
+    } else if (this._currentPlayer._className === "player2") {
+      // Display damage
+      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
+      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
+    }
   }
 
   startFight(clickedEl) {
@@ -222,24 +248,23 @@ class Game {
         this._currentEnemy._weapon._damage = 15;
         break;
     }
+
+    if (this._currentPlayer._className === "player1") {
+      // Display damage
+      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
+      displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
+    } else if (this._currentPlayer._className === "player2") {
+      // Display damage
+      const displayDamageP1 = document.getElementById("damageWeaponplayer1");
+      displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
+    }
+
     console.log("damage of weapon of current enemy", this._currentEnemy._weapon._damage);
   }
 
   endGame() {
-    if (this._currentEnemy._hp > 0 && this._currentPlayer._hp > 0) {
-      if (this._currentPlayer._className === player1._className) {
-        this._currentPlayer = player2;
-        this._currentEnemy = player1;
-        // Display damage
-        const displayDamageP1 = document.getElementById("damageWeaponplayer1");
-        displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
-      } else {
-        this._currentPlayer = player1;
-        this._currentEnemy = player2;
-        // Display damage
-        const displayDamageP2 = document.getElementById("damageWeaponplayer2");
-        displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
-      }
+    if (this._currentEnemy._hp > 0) {
+      this.turnBased();
       this.askCurrentPlayer()
     } else if (this._currentEnemy._hp <= 0) {
       $("#looserName").text(this._currentEnemy._name);
@@ -254,5 +279,6 @@ class Game {
 
 const newGame = new Game();
 
+newGame.screenStart();
 newGame.trajectory();
-newGame.movePlayerOnClick()
+newGame.setOnClick()
