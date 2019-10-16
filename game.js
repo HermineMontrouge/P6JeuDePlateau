@@ -3,35 +3,12 @@ class Game {
   constructor() {
     this._currentPlayer = player1;
     this._currentEnemy = player2;
-    this._lastBox;
   }
 
   setScreenStart() {
     $("#start").click(() => {
       $('#beginingScreen').fadeOut("slow");
     });
-  }
-
-  setAudio() {
-    $('.openingAudio').trigger('load');
-
-    function playOpening() {
-      $('.openingAudio').trigger('play');
-    }
-
-    function stopOpening() {
-      $('.openingAudio').trigger('pause');
-    }
-    $('#audioOn').click(function () {
-      playOpening();
-      $('#audioOn').hide();
-      $('#audioOff').show();
-    })
-    $('#audioOff').click(function () {
-      stopOpening();
-      $('#audioOff').hide();
-      $('#audioOn').show();
-    })
   }
 
   turnBased() {
@@ -137,6 +114,9 @@ class Game {
       console.log(that.isPlayerAdjacent(clickedEl));
       const fightMode = that.isPlayerAdjacent(clickedEl);
       if (fightMode) {
+        //regex pour recupérer x-""
+        // classlist de la div, tranformer en tableau avec split("")
+
         // console.log(that._currentPlayer);
         // console.log(that._currentEnemy);
         // console.log(that._currentPlayer._div.id);
@@ -215,7 +195,7 @@ class Game {
       this.attackingOpponent();
       this.endGame();
     });
- 
+
     $("#defend").click(() => {
       $("#question").fadeOut();
       $('#defend').unbind("click");
@@ -251,12 +231,15 @@ class Game {
   }
 
   displayDamage() {
+    console.log("je passe dans displayDamages");
+    const displayDamageP1 = document.getElementById("damageWeaponplayer1");
+    const displayDamageP2 = document.getElementById("damageWeaponplayer2");
     if (this._currentPlayer._className === "player1") {
-      const displayDamageP1 = document.getElementById("damageWeaponplayer1");
-      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
-    } else if (this._currentPlayer._className === "player2") {
-      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
       displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
+      console.log("===");
+    } else if (this._currentPlayer._className === "player2") {
+      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
+      console.log("+++");
     }
   }
 
@@ -274,10 +257,3 @@ class Game {
     }
   }
 }
-
-const newGame = new Game();
-
-newGame.setScreenStart();
-newGame.setAudio();
-newGame.setTrajectory();
-newGame.setOnClick();

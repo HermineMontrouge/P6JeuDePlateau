@@ -27,7 +27,3 @@ class Player {
     this._damage = damage;
   }
 }
-
-
-const player1 = new Player("Deep Space Nine", "player1", 100, weapon0, "<div></div>", 10);
-const player2 = new Player("Millenium Falcon", "player2", 100, weapon0, "<div></div>", 10);

@@ -73,10 +73,3 @@ class Board {
     }
   }
 }
-
-const newBoard = new Board(10, 10, 14);
-
-newBoard.generateBoard();
-newBoard.generateIdForEachBox();
-newBoard.generatePlayersAndWeapons();
-newBoard.generateUnreachableBoxes();
