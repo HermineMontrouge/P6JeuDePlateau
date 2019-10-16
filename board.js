@@ -8,12 +8,10 @@ class Board {
   }
 
   generateBoard() {
-    // Generate 10 lines
     for (this._y = 0; this._y < this._row; this._y++) {
       const newRow = document.createElement("div");
       newRow.className = "row";
       board.appendChild(newRow);
-      // Generate 1O boxes in each lines
       for (this._x = 0; this._x < this._box; this._x++) {
         const newBox = document.createElement("div");
         newBox.className = `box x-${this._x} y-${this._y} empty`;
@@ -44,50 +42,30 @@ class Board {
     el.classList.remove("empty");
 
     if (el.getAttribute("class").includes("player")) {
-      this.adjacentBoxes(el)
+      this.setDomAdjacentBoxes(el);
     }
-
-    // eval makes it possible to transform a string into an object
     eval(name)._div = el
-    // console.log(eval(name));
   }
 
-  adjacentBoxes(clickedEl) {
-
-    let isAdjacentPlayer = false
-    // player1 and player2 should not appear side by side or be blocked by asteroids at launch
-    let adjacentsId = [(parseInt(clickedEl.id) + 1), (parseInt(clickedEl.id) - 1), (parseInt(clickedEl.id) + this._x), (parseInt(clickedEl.id) - this._x)];
-    adjacentsId = adjacentsId.filter(v => {
-      if (v > 0 && v < 99) return v
+  getAdjacentBoxes(el) {
+    let adjacentIds = [(parseInt(el.id) + 1), (parseInt(el.id) - 1), (parseInt(el.id) + this._x), (parseInt(el.id) - this._x)];
+    adjacentIds = adjacentIds.filter(v => {
+      if (v > 0 && v < 99) return v;
     });
+    return adjacentIds;
+  }
 
-    for (let adjacentId of adjacentsId) {
+  setDomAdjacentBoxes(el) {
+    const adjacentIds = this.getAdjacentBoxes(el);
+    for (let adjacentId of adjacentIds) {
       let box = document.getElementById(adjacentId);
       box.classList.remove("empty");
       box.classList.add("adjacentBox");
-
-
-      // Checked if player are side by side, to start fight
-      let regexPlayer = /player/;
-      let boxValue = box.classList.value;
-      if (regexPlayer.test(boxValue) === true) {
-        isAdjacentPlayer = true
-        console.log("regex adjacent box checked");
-      }
     }
-    return isAdjacentPlayer
   }
-
-  // deleteLastAdjacent() {
-  //   const lastAdjacentBoxes = querySelectorAll(".adjacent")
-  //   lastAdjacentBoxes.forEach( lastAdjacentBox => {
-  //     lastAdjacentBox.classList.remove("adjacent");
-  //   })
-  // }
 
   generateUnreachableBoxes() {
     const lastEmptyBoxes = document.querySelectorAll(".empty");
-    // Random generation of 14 asteroids (sometimes less if they overlap)
     for (let i = 0; i < this._unreachableBox; i++) {
       const asteroid = lastEmptyBoxes[Math.floor(Math.random() * lastEmptyBoxes.length)];
       asteroid.classList.remove("empty");
@@ -95,8 +73,6 @@ class Board {
     }
   }
 }
-
-// Instantiation
 
 const newBoard = new Board(10, 10, 14);
 

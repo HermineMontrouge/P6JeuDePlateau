@@ -6,14 +6,13 @@ class Game {
     this._lastBox;
   }
 
-  screenStart() {
-
-    // Begining screen
+  setScreenStart() {
     $("#start").click(() => {
       $('#beginingScreen').fadeOut("slow");
     });
+  }
 
-    // Audio
+  setAudio() {
     $('.openingAudio').trigger('load');
 
     function playOpening() {
@@ -36,7 +35,6 @@ class Game {
   }
 
   turnBased() {
-    // Change current player and current enemy onclick
     if (this._currentPlayer._className === player1._className) {
       this._currentPlayer = player2;
       this._currentEnemy = player1;
@@ -47,7 +45,6 @@ class Game {
   }
 
   movePlayer(clickedEl) {
-    // Set box with new player and delete player of last box
     if (this._currentPlayer._className === player1._className) {
       player1._div = clickedEl;
       player1._div.classList.remove("empty");
@@ -59,28 +56,22 @@ class Game {
     }
   }
 
-  trajectory() {
+  setTrajectory() {
     const playerId = this._currentPlayer._div.id;
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
     this._currentPlayer._div.classList.add("trajectory");
 
-    // Loop on 3 trajectories (3 boxes in a row)
     for (let i = 1; i <= 3; i++) {
       const rigthBox = document.getElementById(parseInt(playerId) + i);
-      // If the element with the id (number of ID of player1 + the value of i) does not have a class "unreachable"
-      // AND that same element contains the same class x
       if (rigthBox == null) {
         break; // in case player is on id 97 98 or 99
       } else if (
         !rigthBox.classList.contains("unreachable") &&
         rigthBox.classList.contains(playerPosY)
       ) {
-        // Add "trajectory" class to this element
         rigthBox.classList.add("trajectory");
       } else {
-        // If the element with the id (number of the id of the player 1 + the value of i) has a class unreachable
-        // or is not on the same x then we stop the loop to not continue the trajectory of trajectory
         break;
       }
     }
@@ -129,36 +120,42 @@ class Game {
     const that = this;
     const board = document.getElementById("board");
     board.addEventListener("click", function (el) {
-      let clickedEl = el.path[0]
+      let clickedEl = el.path[0];
 
-      // Stop the method if clicked box is not a trajectory
       if (!clickedEl.classList.contains("trajectory")) return;
 
-      // Remove class player1or2 and add "empty" to the old box
       const currentPlayerName = that._currentPlayer._className;
       that._currentPlayer._div.classList.remove(currentPlayerName);
       that._currentPlayer._div.classList.add("empty");
 
-      // Call switchWeapon() if clikedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
       let regexWeapon = /weapon/;
       if (regexWeapon.test(clickedBoxClassName) === true) {
         that.switchWeapon(clickedEl);
       }
 
-      // newBoard.deleteLastAdjacent();
-
-      console.log(newBoard.adjacentBoxes(clickedEl));
-      const fightMode = newBoard.adjacentBoxes(clickedEl);
+      console.log(that.isPlayerAdjacent(clickedEl));
+      const fightMode = that.isPlayerAdjacent(clickedEl);
       if (fightMode) {
+        // console.log(that._currentPlayer);
+        // console.log(that._currentEnemy);
+        // console.log(that._currentPlayer._div.id);
+        // console.log(that._currentEnemy._div.id);
+        // on vérifie si un des joueur est en bout de ligne et l'autre au début de la ligne suivante pour que le combat ne se lance pas, car ils ne sont pas cote à cote mais juste id+1 ok
+        // let regexNine = /9/;
+        // let regexZero = /0/;
+        // if (!(((regexNine.test(that._currentPlayer._div.id)) && (regexNine.test(that._currentEnemy._div.id))) ||
+        //   ((regexZero.test(that._currentPlayer._div.id)) && (regexZero.test(that._currentEnemy._div.id))))) {
+        //   that.startFight(clickedEl);
+        //   return;
+        // }
         that.startFight(clickedEl);
         return;
       }
-
       that.movePlayer(clickedEl);
       that.turnBased();
       that.resetTrajectory();
-      that.trajectory();
+      that.setTrajectory();
     });
   }
 
@@ -171,16 +168,20 @@ class Game {
     this.displayDamage();
   }
 
-  displayDamage() {
-    if (this._currentPlayer._className === "player1") {
-      // Display damage
-      const displayDamageP1 = document.getElementById("damageWeaponplayer1");
-      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
-    } else if (this._currentPlayer._className === "player2") {
-      // Display damage
-      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
-      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
+  isPlayerAdjacent(clickedEl) {
+
+    const adjacentIds = newBoard.getAdjacentBoxes(clickedEl);
+    let isAdjacentPlayer = false;
+
+    for (let adjacentId of adjacentIds) {
+      let box = document.getElementById(adjacentId);
+      let regexPlayer = /player/;
+      let boxValue = box.classList.value;
+      if (regexPlayer.test(boxValue) === true) {
+        isAdjacentPlayer = true;
+      }
     }
+    return isAdjacentPlayer;
   }
 
   startFight(clickedEl) {
@@ -198,16 +199,15 @@ class Game {
   }
 
   askCurrentPlayer() {
-    // Add the name of the player concerned in the question
     $("#playerName").empty();
     if (this._currentPlayer._className === "player1") {
       $("#playerName").append("Deep Space Nine");
     } else {
       $("#playerName").append("Millenium Falcon");
     }
-    // bring up the question
+
     $("#question").fadeIn();
-    // if the player clicks on attack
+
     $("#attack").click(() => {
       $("#question").fadeOut();
       $('#attack').unbind("click");
@@ -215,7 +215,7 @@ class Game {
       this.attackingOpponent();
       this.endGame();
     });
-    // if the player clicks on defend
+ 
     $("#defend").click(() => {
       $("#question").fadeOut();
       $('#defend').unbind("click");
@@ -227,7 +227,6 @@ class Game {
 
   attackingOpponent() {
     this._currentEnemy.hp = this._currentEnemy._hp - this._currentPlayer._weapon._damage;
-    console.log("damage of current player weapon", this._currentPlayer._weapon._damage);
   }
 
   defendAgainstOpponent() {
@@ -248,24 +247,23 @@ class Game {
         this._currentEnemy._weapon._damage = 15;
         break;
     }
+    this.displayDamage();
+  }
 
+  displayDamage() {
     if (this._currentPlayer._className === "player1") {
-      // Display damage
-      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
-      displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
-    } else if (this._currentPlayer._className === "player2") {
-      // Display damage
       const displayDamageP1 = document.getElementById("damageWeaponplayer1");
-      displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
+      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
+    } else if (this._currentPlayer._className === "player2") {
+      const displayDamageP2 = document.getElementById("damageWeaponplayer2");
+      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
     }
-
-    console.log("damage of weapon of current enemy", this._currentEnemy._weapon._damage);
   }
 
   endGame() {
     if (this._currentEnemy._hp > 0) {
       this.turnBased();
-      this.askCurrentPlayer()
+      this.askCurrentPlayer();
     } else if (this._currentEnemy._hp <= 0) {
       $("#looserName").text(this._currentEnemy._name);
       $("#winnerName").text(this._currentPlayer._name);
@@ -279,6 +277,7 @@ class Game {
 
 const newGame = new Game();
 
-newGame.screenStart();
-newGame.trajectory();
-newGame.setOnClick()
+newGame.setScreenStart();
+newGame.setAudio();
+newGame.setTrajectory();
+newGame.setOnClick();
