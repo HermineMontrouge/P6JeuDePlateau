@@ -3,7 +3,7 @@
     const weapon2 = new Weapon("neuralizer", 20, "weapon2", "<div></div>", '<img src="./media/weapons/neuralizer.png" width="100" height="100" alt="Neuralizer"></img>');
     const weapon3 = new Weapon("tri Barrel Plasma Gun", 25, "weapon3", "<div></div>", '<img src="./media/weapons/triBarrelPlasmaGun.png" width="100" height="100" alt="Tri Barrel PlasmaGun"></img>');
     const weapon4 = new Weapon("noisy Cricket", 30, "weapon4", "<div></div>", '<img src="./media/weapons/noisyCricket.png" width="100" height="100" alt="Noisy Cricket"></img>');
-    
+
     const player1 = new Player("Deep Space Nine", "player1", 100, weapon0, "<div></div>", 10);
     const player2 = new Player("Millenium Falcon", "player2", 100, weapon0, "<div></div>", 10);
     
