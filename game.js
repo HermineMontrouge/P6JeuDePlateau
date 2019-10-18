@@ -34,6 +34,10 @@ class Game {
   }
 
   setTrajectory() {
+
+console.log(this._currentPlayer);
+console.log(this._currentEnemy);
+
     const playerId = this._currentPlayer._div.id;
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
@@ -86,13 +90,6 @@ class Game {
     }
   }
 
-  resetTrajectory() {
-    const trajectoryBoxes = document.getElementsByClassName("trajectory");
-    Array.from(trajectoryBoxes).map(box => {
-      box.classList.remove("trajectory");
-    })
-  }
-
   setOnClick() {
     const that = this;
     const board = document.getElementById("board");
@@ -111,32 +108,33 @@ class Game {
         that.switchWeapon(clickedEl);
       }
 
-      console.log(that.isPlayerAdjacent(clickedEl));
       const fightMode = that.isPlayerAdjacent(clickedEl);
       if (fightMode) {
-        //regex pour recupérer x-""
-        // classlist de la div, tranformer en tableau avec split("")
 
-        // console.log(that._currentPlayer);
-        // console.log(that._currentEnemy);
-        // console.log(that._currentPlayer._div.id);
-        // console.log(that._currentEnemy._div.id);
-        // on vérifie si un des joueur est en bout de ligne et l'autre au début de la ligne suivante pour que le combat ne se lance pas, car ils ne sont pas cote à cote mais juste id+1 ok
-        // let regexNine = /9/;
-        // let regexZero = /0/;
-        // if (!(((regexNine.test(that._currentPlayer._div.id)) && (regexNine.test(that._currentEnemy._div.id))) ||
-        //   ((regexZero.test(that._currentPlayer._div.id)) && (regexZero.test(that._currentEnemy._div.id))))) {
-        //   that.startFight(clickedEl);
-        //   return;
-        // }
-        that.startFight(clickedEl);
-        return;
+        let strEnemy = that._currentEnemy._div.className;
+        let strClickedEl = clickedEl.className;
+        let EnemyColumn = strEnemy.split("");
+        let clickedElColumn = strClickedEl.split("");
+
+        if ((parseInt(clickedElColumn[6]) != 9 && parseInt(EnemyColumn[6]) != 0)) {
+            if ((parseInt(clickedElColumn[6]) != 0 && parseInt(EnemyColumn[6]) != 9)) {
+            that.startFight(clickedEl);
+            return;
+          }
+        }
       }
       that.movePlayer(clickedEl);
       that.turnBased();
       that.resetTrajectory();
       that.setTrajectory();
     });
+  }
+
+  resetTrajectory() {
+    const trajectoryBoxes = document.getElementsByClassName("trajectory");
+    Array.from(trajectoryBoxes).map(box => {
+      box.classList.remove("trajectory");
+    })
   }
 
   switchWeapon(clickedEl) {
@@ -228,18 +226,19 @@ class Game {
         break;
     }
     this.displayDamage();
+    console.log(this._currentPlayer)
+    console.log(this._currentEnemy)
   }
 
   displayDamage() {
-    console.log("je passe dans displayDamages");
     const displayDamageP1 = document.getElementById("damageWeaponplayer1");
     const displayDamageP2 = document.getElementById("damageWeaponplayer2");
     if (this._currentPlayer._className === "player1") {
-      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
-      console.log("===");
-    } else if (this._currentPlayer._className === "player2") {
       displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
-      console.log("+++");
+      displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
+    } else if (this._currentPlayer._className === "player2") {
+      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
+      displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
     }
   }
 
