@@ -35,9 +35,6 @@ class Game {
 
   setTrajectory() {
 
-console.log(this._currentPlayer);
-console.log(this._currentEnemy);
-
     const playerId = this._currentPlayer._div.id;
     const playerPosY = this._currentPlayer._div.classList.item(2);
 
@@ -96,12 +93,15 @@ console.log(this._currentEnemy);
     board.addEventListener("click", function (el) {
       let clickedEl = el.path[0];
 
+      // the click only reacts for "trajectory" boxes
       if (!clickedEl.classList.contains("trajectory")) return;
 
+      // delete player from last box
       const currentPlayerName = that._currentPlayer._className;
       that._currentPlayer._div.classList.remove(currentPlayerName);
       that._currentPlayer._div.classList.add("empty");
 
+      // call switchWeapon() if clickedEl contains a weapon
       let clickedBoxClassName = clickedEl.classList.value;
       let regexWeapon = /weapon/;
       if (regexWeapon.test(clickedBoxClassName) === true) {
@@ -116,8 +116,9 @@ console.log(this._currentEnemy);
         let EnemyColumn = strEnemy.split("");
         let clickedElColumn = strClickedEl.split("");
 
+        // allows not to engage the fight when one player and at the end of the line and the other player at the beginning of the next line
         if ((parseInt(clickedElColumn[6]) != 9 && parseInt(EnemyColumn[6]) != 0)) {
-            if ((parseInt(clickedElColumn[6]) != 0 && parseInt(EnemyColumn[6]) != 9)) {
+          if ((parseInt(clickedElColumn[6]) != 0 && parseInt(EnemyColumn[6]) != 9)) {
             that.startFight(clickedEl);
             return;
           }
@@ -168,8 +169,8 @@ console.log(this._currentEnemy);
     this._currentPlayer._div.classList.add(this._currentPlayer._className);
     this.resetTrajectory();
 
+    // message "war is begining" appears for 2seconds
     $("#startFight").fadeIn("slow");
-
     setTimeout(() => {
       $('#startFight').fadeOut("slow");
       this.askCurrentPlayer();
@@ -177,6 +178,7 @@ console.log(this._currentEnemy);
   }
 
   askCurrentPlayer() {
+    // check which player is playing 
     $("#playerName").empty();
     if (this._currentPlayer._className === "player1") {
       $("#playerName").append("Deep Space Nine");
@@ -184,6 +186,7 @@ console.log(this._currentEnemy);
       $("#playerName").append("Millenium Falcon");
     }
 
+    // ask the current player to attack or defend
     $("#question").fadeIn();
 
     $("#attack").click(() => {
@@ -226,8 +229,6 @@ console.log(this._currentEnemy);
         break;
     }
     this.displayDamage();
-    console.log(this._currentPlayer)
-    console.log(this._currentEnemy)
   }
 
   displayDamage() {
