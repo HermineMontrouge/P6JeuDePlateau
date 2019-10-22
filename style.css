@@ -93,7 +93,7 @@ h2 {
     max-width: 40%;
 }
 
-@media all and (min-width: 150px) and (max-width: 1200px) {
+@media all and (min-width: 150px) and (max-width: 800px) {
 
     .P1boardP2 {
         flex-direction: column;
@@ -183,7 +183,7 @@ h2 {
 }
 
 .unreachable {
-    background-image: url('./media/asteroid50px.png');
+    background-image: url('./media/asteroid.png');
 }
 
 [class*="weapon"]::after {
