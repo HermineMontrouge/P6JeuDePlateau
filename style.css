@@ -62,6 +62,22 @@ h2 {
 }
 
 /*///////////////////////////////////////
+            button audio
+///////////////////////////////////////*/
+
+#audioOff,
+#audioOn {
+    margin-bottom: 30px;
+    position: absolute;
+    margin-top: 5px;
+    font-family: "Press Start 2P";
+    background-color: #200444;
+    color: white;
+    padding: 8px;
+    border: white solid 1px;
+}
+
+/*///////////////////////////////////////
  display name hp and weapons of players
 ///////////////////////////////////////*/
 
@@ -344,14 +360,3 @@ h2 {
     }
 }
 
-#audioOff,
-#audioOn {
-    margin-bottom: 30px;
-    position: absolute;
-    margin-top: 5px;
-    font-family: "Press Start 2P";
-    background-color: #200444;
-    color: white;
-    padding: 8px;
-    border: white solid 1px;
-}

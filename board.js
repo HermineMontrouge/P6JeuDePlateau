@@ -33,7 +33,7 @@ class Board {
     // filters into a new array "adjacentIds" that are less than 0 or greater than 99
     let adjacentIds = [(parseInt(clickedEl.id) + 1), (parseInt(clickedEl.id) - 1), (parseInt(clickedEl.id) + this._box), (parseInt(clickedEl.id) - this._box)];
     adjacentIds = adjacentIds.filter(v => {
-      if (v > 0 && v < 99) return v;
+      if (v > 0 && v < (this._row * this._box) -1) return v;
     });
     return adjacentIds;
   }

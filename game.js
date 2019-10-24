@@ -131,22 +131,6 @@ class Game {
     });
   }
 
-  resetTrajectory() {
-    const trajectoryBoxes = document.getElementsByClassName("trajectory");
-    Array.from(trajectoryBoxes).map(box => {
-      box.classList.remove("trajectory");
-    })
-  }
-
-  switchWeapon(clickedEl) {
-    const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
-    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
-    clickedEl.classList.add(this._currentPlayer._weapon._className);
-    clickedEl.classList.remove(currentweapon._className);
-    this._currentPlayer.weapon = currentweapon;
-    this.displayDamage();
-  }
-
   isPlayerAdjacent(clickedEl) {
 
     const adjacentIds = newBoard.getAdjacentBoxes(clickedEl);
@@ -161,6 +145,22 @@ class Game {
       }
     }
     return isAdjacentPlayer;
+  }
+
+  resetTrajectory() {
+    const trajectoryBoxes = document.getElementsByClassName("trajectory");
+    Array.from(trajectoryBoxes).map(box => {
+      box.classList.remove("trajectory");
+    })
+  }
+
+  switchWeapon(clickedEl) {
+    const weaponNames = [weapon0, weapon1, weapon2, weapon3, weapon4];
+    const currentweapon = weaponNames.filter(value => clickedEl.getAttribute("class").includes(value._className))[0];
+    clickedEl.classList.add(this._currentPlayer._weapon._className);
+    clickedEl.classList.remove(currentweapon._className);
+    this._currentPlayer.weapon = currentweapon;
+    this.displayDamage();
   }
 
   startFight(clickedEl) {

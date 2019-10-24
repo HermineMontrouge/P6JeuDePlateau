@@ -1,7 +1,7 @@
  class AudioPlayer {
 
      setAudio() {
-    $('.openingAudio').prop('volume', 0.05);
+    $('.openingAudio').prop('volume', 0.02);
     $('.openingAudio').trigger('load');
 
     function playOpening() {
