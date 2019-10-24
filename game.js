@@ -69,7 +69,7 @@ class Game {
     }
 
     for (let i = 1; i <= 3; i++) {
-      const bottomBox = document.getElementById(parseInt(playerId) + i * 10);
+      const bottomBox = document.getElementById(parseInt(playerId) + i * newBoard._row);
       if (bottomBox && !bottomBox.classList.contains("unreachable")) {
         bottomBox.classList.add("trajectory");
       } else {
@@ -78,7 +78,7 @@ class Game {
     }
 
     for (let i = 1; i <= 3; i++) {
-      const topBox = document.getElementById(parseInt(playerId) - i * 10);
+      const topBox = document.getElementById(parseInt(playerId) - i * newBoard._row);
       if (topBox && !topBox.classList.contains("unreachable")) {
         topBox.classList.add("trajectory");
       } else {
@@ -87,7 +87,7 @@ class Game {
     }
   }
 
-  setOnClick() {
+  moveToNextTurn() {
     const that = this;
     const board = document.getElementById("board");
     board.addEventListener("click", function (el) {
@@ -160,7 +160,6 @@ class Game {
     clickedEl.classList.add(this._currentPlayer._weapon._className);
     clickedEl.classList.remove(currentweapon._className);
     this._currentPlayer.weapon = currentweapon;
-    this.displayDamage();
   }
 
   startFight(clickedEl) {
@@ -193,6 +192,7 @@ class Game {
       $("#question").fadeOut();
       $('#attack').unbind("click");
       $('#defend').unbind("click");
+      this._currentPlayer._defenseMode = false;
       this.attackingOpponent();
       this.endGame();
     });
@@ -201,46 +201,13 @@ class Game {
       $("#question").fadeOut();
       $('#defend').unbind("click");
       $('#attack').unbind("click");
-      this.defendAgainstOpponent();
+      this._currentPlayer._defenseMode = true;
       this.endGame();
     });
   }
 
   attackingOpponent() {
-    this._currentEnemy.hp = this._currentEnemy._hp - this._currentPlayer._weapon._damage;
-  }
-
-  defendAgainstOpponent() {
-    switch (this._currentEnemy._weapon._name) {
-      case "blaster":
-        this._currentEnemy._weapon._damage = 5;
-        break;
-      case "light Saber Cold Fusion":
-        this._currentEnemy._weapon._damage = 8;
-        break;
-      case "neuralizer":
-        this._currentEnemy._weapon._damage = 10;
-        break;
-      case "tri Barrel Plasma Gun":
-        this._currentEnemy._weapon._damage = 12;
-        break;
-      case "noisy Cricket":
-        this._currentEnemy._weapon._damage = 15;
-        break;
-    }
-    this.displayDamage();
-  }
-
-  displayDamage() {
-    const displayDamageP1 = document.getElementById("damageWeaponplayer1");
-    const displayDamageP2 = document.getElementById("damageWeaponplayer2");
-    if (this._currentPlayer._className === "player1") {
-      displayDamageP1.innerHTML = this._currentPlayer._weapon._damage;
-      displayDamageP2.innerHTML = this._currentEnemy._weapon._damage;
-    } else if (this._currentPlayer._className === "player2") {
-      displayDamageP2.innerHTML = this._currentPlayer._weapon._damage;
-      displayDamageP1.innerHTML = this._currentEnemy._weapon._damage;
-    }
+    this._currentEnemy.isAttacked(this._currentPlayer._weapon._damage);
   }
 
   endGame() {
